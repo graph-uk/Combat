@@ -1,0 +1,305 @@
+15:29:26.909 INFO [1] org.openqa.grid.selenium.GridLauncher - Launching a standalone server
+15:29:27.115 INFO [1] org.openqa.selenium.server.SeleniumServer - Writing debug logs to log.txt
+15:29:27.115 INFO [1] org.openqa.selenium.server.SeleniumServer - Java: Oracle Corporation 25.45-b02
+15:29:27.115 INFO [1] org.openqa.selenium.server.SeleniumServer - OS: Windows 7 6.1 amd64
+15:29:27.126 INFO [1] org.openqa.selenium.server.SeleniumServer - v2.45.0, with Core v2.45.0. Built from revision 5017cb8
+15:29:27.126 INFO [1] org.openqa.selenium.server.SeleniumServer - Will recycle browser sessions when possible.
+15:29:27.126 INFO [1] org.openqa.selenium.server.SeleniumServer - "*googlechrome" will be used as the browser mode for all sessions, no matter what is passed to getNewBrowserSession.
+15:29:27.242 INFO [1] org.openqa.selenium.server.SeleniumServer - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
+15:29:27.243 INFO [1] org.openqa.jetty.http.HttpServer - Version Jetty/5.1.x
+15:29:27.245 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/selenium-server,/selenium-server]
+15:29:27.392 INFO [1] org.openqa.jetty.util.Container - Started org.openqa.jetty.jetty.servlet.ServletHandler@1b40d5f0
+15:29:27.393 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/wd,/wd]
+15:29:27.393 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/selenium-server/driver,/selenium-server/driver]
+15:29:27.393 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/,/]
+15:29:27.397 INFO [1] org.openqa.jetty.http.SocketListener - Started SocketListener on 0.0.0.0:4444
+15:29:27.397 INFO [1] org.openqa.jetty.util.Container - Started org.openqa.jetty.jetty.Server@7cd84586
+15:31:15.574 INFO [1] org.openqa.grid.selenium.GridLauncher - Launching a standalone server
+15:31:15.775 INFO [1] org.openqa.selenium.server.SeleniumServer - Writing debug logs to log.txt
+15:31:15.775 INFO [1] org.openqa.selenium.server.SeleniumServer - Java: Oracle Corporation 25.45-b02
+15:31:15.775 INFO [1] org.openqa.selenium.server.SeleniumServer - OS: Windows 7 6.1 amd64
+15:31:15.785 INFO [1] org.openqa.selenium.server.SeleniumServer - v2.45.0, with Core v2.45.0. Built from revision 5017cb8
+15:31:15.785 INFO [1] org.openqa.selenium.server.SeleniumServer - Will recycle browser sessions when possible.
+15:31:15.785 INFO [1] org.openqa.selenium.server.SeleniumServer - "chrome" will be used as the browser mode for all sessions, no matter what is passed to getNewBrowserSession.
+15:31:15.897 INFO [1] org.openqa.selenium.server.SeleniumServer - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
+15:31:15.898 INFO [1] org.openqa.jetty.http.HttpServer - Version Jetty/5.1.x
+15:31:15.899 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/selenium-server,/selenium-server]
+15:31:16.046 INFO [1] org.openqa.jetty.util.Container - Started org.openqa.jetty.jetty.servlet.ServletHandler@ea4a92b
+15:31:16.046 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/wd,/wd]
+15:31:16.046 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/selenium-server/driver,/selenium-server/driver]
+15:31:16.046 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/,/]
+15:31:16.050 INFO [1] org.openqa.jetty.http.SocketListener - Started SocketListener on 0.0.0.0:4444
+15:31:16.050 INFO [1] org.openqa.jetty.util.Container - Started org.openqa.jetty.jetty.Server@30dae81
+15:31:44.003 INFO [1] org.openqa.grid.selenium.GridLauncher - Launching a standalone server
+15:31:44.196 INFO [1] org.openqa.selenium.server.SeleniumServer - Writing debug logs to log.txt
+15:31:44.196 INFO [1] org.openqa.selenium.server.SeleniumServer - Java: Oracle Corporation 25.45-b02
+15:31:44.196 INFO [1] org.openqa.selenium.server.SeleniumServer - OS: Windows 7 6.1 amd64
+15:31:44.208 INFO [1] org.openqa.selenium.server.SeleniumServer - v2.45.0, with Core v2.45.0. Built from revision 5017cb8
+15:31:44.208 INFO [1] org.openqa.selenium.server.SeleniumServer - Will recycle browser sessions when possible.
+15:31:44.208 INFO [1] org.openqa.selenium.server.SeleniumServer - "chrome" will be used as the browser mode for all sessions, no matter what is passed to getNewBrowserSession.
+15:31:44.328 INFO [1] org.openqa.selenium.server.SeleniumServer - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
+15:31:44.328 INFO [1] org.openqa.jetty.http.HttpServer - Version Jetty/5.1.x
+15:31:44.330 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/selenium-server,/selenium-server]
+15:31:44.474 INFO [1] org.openqa.jetty.util.Container - Started org.openqa.jetty.jetty.servlet.ServletHandler@ea4a92b
+15:31:44.474 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/wd,/wd]
+15:31:44.474 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/selenium-server/driver,/selenium-server/driver]
+15:31:44.475 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/,/]
+15:31:44.478 INFO [1] org.openqa.jetty.http.SocketListener - Started SocketListener on 0.0.0.0:4444
+15:31:44.479 INFO [1] org.openqa.jetty.util.Container - Started org.openqa.jetty.jetty.Server@30dae81
+15:32:23.172 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [new session: Capabilities [{rotatable=false, nativeEvents=false, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, version=, platform=ANY, cssSelectorsEnabled=true}]])
+15:32:23.183 INFO [22] org.openqa.selenium.remote.server.DefaultDriverProvider - Creating a new session for Capabilities [{rotatable=false, nativeEvents=false, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, version=, platform=ANY, cssSelectorsEnabled=true}]
+15:32:26.934 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [new session: Capabilities [{rotatable=false, nativeEvents=false, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, version=, platform=ANY, cssSelectorsEnabled=true}]]
+15:32:26.946 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [get: http://www.google.com/ncr])
+15:32:28.841 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [get: http://www.google.com/ncr]
+15:32:28.852 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [find element: By.name: q])
+15:32:29.075 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [find element: By.name: q]
+15:32:29.089 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [send keys: 0 [[FirefoxDriver: firefox on WINDOWS (e3ba0b41-a0d2-487f-9b91-8715b105fc3a)] -> name: q], [BrowserStack]])
+15:32:29.229 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [send keys: 0 [[FirefoxDriver: firefox on WINDOWS (e3ba0b41-a0d2-487f-9b91-8715b105fc3a)] -> name: q], [BrowserStack]]
+15:32:29.240 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [submit: 0 [[FirefoxDriver: firefox on WINDOWS (e3ba0b41-a0d2-487f-9b91-8715b105fc3a)] -> name: q]])
+15:32:29.295 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [submit: 0 [[FirefoxDriver: firefox on WINDOWS (e3ba0b41-a0d2-487f-9b91-8715b105fc3a)] -> name: q]]
+15:32:29.300 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [get title])
+15:32:29.334 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [get title]
+15:32:31.341 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [get: http://www.google.com/ncr])
+15:32:31.831 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [get: http://www.google.com/ncr]
+15:32:31.841 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [find element: By.cssSelector: *[name='q']])
+15:32:31.990 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [find element: By.cssSelector: *[name='q']]
+15:32:32.005 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [send keys: 1 [[FirefoxDriver: firefox on WINDOWS (e3ba0b41-a0d2-487f-9b91-8715b105fc3a)] -> css selector: *[name='q']], [BrowserStack]])
+15:32:32.108 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [send keys: 1 [[FirefoxDriver: firefox on WINDOWS (e3ba0b41-a0d2-487f-9b91-8715b105fc3a)] -> css selector: *[name='q']], [BrowserStack]]
+15:32:32.114 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [submit: 1 [[FirefoxDriver: firefox on WINDOWS (e3ba0b41-a0d2-487f-9b91-8715b105fc3a)] -> css selector: *[name='q']]])
+15:32:32.180 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [submit: 1 [[FirefoxDriver: firefox on WINDOWS (e3ba0b41-a0d2-487f-9b91-8715b105fc3a)] -> css selector: *[name='q']]]
+15:32:32.184 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [get title])
+15:32:32.225 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [get title]
+15:32:43.760 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [new session: Capabilities [{rotatable=false, nativeEvents=false, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, version=, platform=ANY, cssSelectorsEnabled=true}]])
+15:32:43.762 INFO [30] org.openqa.selenium.remote.server.DefaultDriverProvider - Creating a new session for Capabilities [{rotatable=false, nativeEvents=false, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, version=, platform=ANY, cssSelectorsEnabled=true}]
+15:32:46.871 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [new session: Capabilities [{rotatable=false, nativeEvents=false, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, version=, platform=ANY, cssSelectorsEnabled=true}]]
+15:32:46.880 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [get: http://www.google.com/ncr])
+15:32:48.564 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [get: http://www.google.com/ncr]
+15:32:48.572 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [find element: By.name: q])
+15:32:48.799 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [find element: By.name: q]
+15:32:48.804 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [send keys: 0 [[FirefoxDriver: firefox on WINDOWS (add2b494-56cf-40ab-8aa9-c800fec0b1ec)] -> name: q], [BrowserStack]])
+15:32:48.964 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [send keys: 0 [[FirefoxDriver: firefox on WINDOWS (add2b494-56cf-40ab-8aa9-c800fec0b1ec)] -> name: q], [BrowserStack]]
+15:32:48.975 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [submit: 0 [[FirefoxDriver: firefox on WINDOWS (add2b494-56cf-40ab-8aa9-c800fec0b1ec)] -> name: q]])
+15:32:49.039 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [submit: 0 [[FirefoxDriver: firefox on WINDOWS (add2b494-56cf-40ab-8aa9-c800fec0b1ec)] -> name: q]]
+15:32:49.045 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [get title])
+15:32:49.075 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [get title]
+15:32:51.087 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [get: http://www.google.com/ncr])
+15:32:51.613 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [get: http://www.google.com/ncr]
+15:32:51.617 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [find element: By.cssSelector: *[name='q']])
+15:32:51.769 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [find element: By.cssSelector: *[name='q']]
+15:32:51.778 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [send keys: 1 [[FirefoxDriver: firefox on WINDOWS (add2b494-56cf-40ab-8aa9-c800fec0b1ec)] -> css selector: *[name='q']], [BrowserStack]])
+15:32:51.874 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [send keys: 1 [[FirefoxDriver: firefox on WINDOWS (add2b494-56cf-40ab-8aa9-c800fec0b1ec)] -> css selector: *[name='q']], [BrowserStack]]
+15:32:51.879 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [submit: 1 [[FirefoxDriver: firefox on WINDOWS (add2b494-56cf-40ab-8aa9-c800fec0b1ec)] -> css selector: *[name='q']]])
+15:32:51.945 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [submit: 1 [[FirefoxDriver: firefox on WINDOWS (add2b494-56cf-40ab-8aa9-c800fec0b1ec)] -> css selector: *[name='q']]]
+15:32:51.949 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [get title])
+15:32:51.989 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Done: [get title]
+15:33:26.586 INFO [1] org.openqa.grid.selenium.GridLauncher - Launching a standalone server
+15:33:26.787 INFO [1] org.openqa.selenium.server.SeleniumServer - Writing debug logs to log.txt
+15:33:26.787 INFO [1] org.openqa.selenium.server.SeleniumServer - Java: Oracle Corporation 25.45-b02
+15:33:26.787 INFO [1] org.openqa.selenium.server.SeleniumServer - OS: Windows 7 6.1 amd64
+15:33:26.798 INFO [1] org.openqa.selenium.server.SeleniumServer - v2.45.0, with Core v2.45.0. Built from revision 5017cb8
+15:33:26.798 INFO [1] org.openqa.selenium.server.SeleniumServer - Will recycle browser sessions when possible.
+15:33:26.798 INFO [1] org.openqa.selenium.server.SeleniumServer - "chrome" will be used as the browser mode for all sessions, no matter what is passed to getNewBrowserSession.
+15:33:26.908 INFO [1] org.openqa.selenium.server.SeleniumServer - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
+15:33:26.909 INFO [1] org.openqa.jetty.http.HttpServer - Version Jetty/5.1.x
+15:33:26.910 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/selenium-server,/selenium-server]
+15:33:27.075 INFO [1] org.openqa.jetty.util.Container - Started org.openqa.jetty.jetty.servlet.ServletHandler@ea4a92b
+15:33:27.075 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/wd,/wd]
+15:33:27.076 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/selenium-server/driver,/selenium-server/driver]
+15:33:27.076 INFO [1] org.openqa.jetty.util.Container - Started HttpContext[/,/]
+15:33:27.080 INFO [1] org.openqa.jetty.http.SocketListener - Started SocketListener on 0.0.0.0:4444
+15:33:27.080 INFO [1] org.openqa.jetty.util.Container - Started org.openqa.jetty.jetty.Server@30dae81
+15:33:35.130 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [new session: Capabilities [{rotatable=false, nativeEvents=false, browserName=chrome, takesScreenshot=false, javascriptEnabled=true, version=, platform=ANY, cssSelectorsEnabled=true}]])
+15:33:35.140 INFO [22] org.openqa.selenium.remote.server.DefaultDriverProvider - Creating a new session for Capabilities [{rotatable=false, nativeEvents=false, browserName=chrome, takesScreenshot=false, javascriptEnabled=true, version=, platform=ANY, cssSelectorsEnabled=true}]
+15:33:35.160 WARN [16] org.openqa.selenium.remote.server.DriverServlet - Exception thrown
+java.util.concurrent.ExecutionException: org.openqa.selenium.WebDriverException: java.lang.reflect.InvocationTargetException
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'dennisb-pc', ip: '192.168.56.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_45'
+Driver info: driver.version: unknown
+	at java.util.concurrent.FutureTask.report(Unknown Source)
+	at java.util.concurrent.FutureTask.get(Unknown Source)
+	at org.openqa.selenium.remote.server.DefaultSession.execute(DefaultSession.java:175)
+	at org.openqa.selenium.remote.server.DefaultSession.<init>(DefaultSession.java:111)
+	at org.openqa.selenium.remote.server.DefaultSession.createSession(DefaultSession.java:88)
+	at org.openqa.selenium.remote.server.DefaultDriverSessions.newSession(DefaultDriverSessions.java:109)
+	at org.openqa.selenium.remote.server.handler.NewSession.handle(NewSession.java:57)
+	at org.openqa.selenium.remote.server.handler.NewSession.handle(NewSession.java:1)
+	at org.openqa.selenium.remote.server.rest.ResultConfig.handle(ResultConfig.java:110)
+	at org.openqa.selenium.remote.server.JsonHttpCommandHandler.handleRequest(JsonHttpCommandHandler.java:172)
+	at org.openqa.selenium.remote.server.DriverServlet.handleRequest(DriverServlet.java:201)
+	at org.openqa.selenium.remote.server.DriverServlet.doPost(DriverServlet.java:163)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727)
+	at org.openqa.selenium.remote.server.DriverServlet.service(DriverServlet.java:129)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.openqa.jetty.jetty.servlet.ServletHolder.handle(ServletHolder.java:428)
+	at org.openqa.jetty.jetty.servlet.ServletHandler.dispatch(ServletHandler.java:680)
+	at org.openqa.jetty.jetty.servlet.ServletHandler.handle(ServletHandler.java:571)
+	at org.openqa.jetty.http.HttpContext.handle(HttpContext.java:1526)
+	at org.openqa.jetty.http.HttpContext.handle(HttpContext.java:1479)
+	at org.openqa.jetty.http.HttpServer.service(HttpServer.java:920)
+	at org.openqa.jetty.http.HttpConnection.service(HttpConnection.java:820)
+	at org.openqa.jetty.http.HttpConnection.handleNext(HttpConnection.java:986)
+	at org.openqa.jetty.http.HttpConnection.handle(HttpConnection.java:837)
+	at org.openqa.jetty.http.SocketListener.handleConnection(SocketListener.java:243)
+	at org.openqa.jetty.util.ThreadedServer.handle(ThreadedServer.java:358)
+	at org.openqa.jetty.util.ThreadPool$PoolThread.run(ThreadPool.java:537)
+Caused by: org.openqa.selenium.WebDriverException: java.lang.reflect.InvocationTargetException
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'dennisb-pc', ip: '192.168.56.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_45'
+Driver info: driver.version: unknown
+	at org.openqa.selenium.remote.server.DefaultDriverProvider.callConstructor(DefaultDriverProvider.java:69)
+	at org.openqa.selenium.remote.server.DefaultDriverProvider.newInstance(DefaultDriverProvider.java:53)
+	at org.openqa.selenium.remote.server.DefaultDriverFactory.newInstance(DefaultDriverFactory.java:54)
+	at org.openqa.selenium.remote.server.DefaultSession$BrowserCreator.call(DefaultSession.java:214)
+	at org.openqa.selenium.remote.server.DefaultSession$BrowserCreator.call(DefaultSession.java:1)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at org.openqa.selenium.remote.server.DefaultSession$1.run(DefaultSession.java:168)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.server.DefaultDriverProvider.callConstructor(DefaultDriverProvider.java:59)
+	... 9 more
+Caused by: java.lang.IllegalStateException: The path to the driver executable must be set by the webdriver.chrome.driver system property; for more information, see http://code.google.com/p/selenium/wiki/ChromeDriver. The latest version can be downloaded from http://chromedriver.storage.googleapis.com/index.html
+	at com.google.common.base.Preconditions.checkState(Preconditions.java:197)
+	at org.openqa.selenium.remote.service.DriverService.findExecutable(DriverService.java:110)
+	at org.openqa.selenium.chrome.ChromeDriverService.access$0(ChromeDriverService.java:1)
+	at org.openqa.selenium.chrome.ChromeDriverService$Builder.findDefaultExecutable(ChromeDriverService.java:118)
+	at org.openqa.selenium.remote.service.DriverService$Builder.build(DriverService.java:291)
+	at org.openqa.selenium.chrome.ChromeDriverService.createDefaultService(ChromeDriverService.java:82)
+	at org.openqa.selenium.chrome.ChromeDriver.<init>(ChromeDriver.java:139)
+	... 14 more
+15:33:35.166 WARN [16] org.openqa.selenium.remote.server.DriverServlet - Exception: The path to the driver executable must be set by the webdriver.chrome.driver system property; for more information, see http://code.google.com/p/selenium/wiki/ChromeDriver. The latest version can be downloaded from http://chromedriver.storage.googleapis.com/index.html
+15:34:04.228 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [new session: Capabilities [{rotatable=false, nativeEvents=false, browserName=chrome, takesScreenshot=false, javascriptEnabled=true, version=, platform=ANY, cssSelectorsEnabled=true}]])
+15:34:04.230 INFO [24] org.openqa.selenium.remote.server.DefaultDriverProvider - Creating a new session for Capabilities [{rotatable=false, nativeEvents=false, browserName=chrome, takesScreenshot=false, javascriptEnabled=true, version=, platform=ANY, cssSelectorsEnabled=true}]
+15:34:04.237 WARN [16] org.openqa.selenium.remote.server.DriverServlet - Exception thrown
+java.util.concurrent.ExecutionException: org.openqa.selenium.WebDriverException: java.lang.reflect.InvocationTargetException
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'dennisb-pc', ip: '192.168.56.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_45'
+Driver info: driver.version: unknown
+	at java.util.concurrent.FutureTask.report(Unknown Source)
+	at java.util.concurrent.FutureTask.get(Unknown Source)
+	at org.openqa.selenium.remote.server.DefaultSession.execute(DefaultSession.java:175)
+	at org.openqa.selenium.remote.server.DefaultSession.<init>(DefaultSession.java:111)
+	at org.openqa.selenium.remote.server.DefaultSession.createSession(DefaultSession.java:88)
+	at org.openqa.selenium.remote.server.DefaultDriverSessions.newSession(DefaultDriverSessions.java:109)
+	at org.openqa.selenium.remote.server.handler.NewSession.handle(NewSession.java:57)
+	at org.openqa.selenium.remote.server.handler.NewSession.handle(NewSession.java:1)
+	at org.openqa.selenium.remote.server.rest.ResultConfig.handle(ResultConfig.java:110)
+	at org.openqa.selenium.remote.server.JsonHttpCommandHandler.handleRequest(JsonHttpCommandHandler.java:172)
+	at org.openqa.selenium.remote.server.DriverServlet.handleRequest(DriverServlet.java:201)
+	at org.openqa.selenium.remote.server.DriverServlet.doPost(DriverServlet.java:163)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727)
+	at org.openqa.selenium.remote.server.DriverServlet.service(DriverServlet.java:129)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.openqa.jetty.jetty.servlet.ServletHolder.handle(ServletHolder.java:428)
+	at org.openqa.jetty.jetty.servlet.ServletHandler.dispatch(ServletHandler.java:680)
+	at org.openqa.jetty.jetty.servlet.ServletHandler.handle(ServletHandler.java:571)
+	at org.openqa.jetty.http.HttpContext.handle(HttpContext.java:1526)
+	at org.openqa.jetty.http.HttpContext.handle(HttpContext.java:1479)
+	at org.openqa.jetty.http.HttpServer.service(HttpServer.java:920)
+	at org.openqa.jetty.http.HttpConnection.service(HttpConnection.java:820)
+	at org.openqa.jetty.http.HttpConnection.handleNext(HttpConnection.java:986)
+	at org.openqa.jetty.http.HttpConnection.handle(HttpConnection.java:837)
+	at org.openqa.jetty.http.SocketListener.handleConnection(SocketListener.java:243)
+	at org.openqa.jetty.util.ThreadedServer.handle(ThreadedServer.java:358)
+	at org.openqa.jetty.util.ThreadPool$PoolThread.run(ThreadPool.java:537)
+Caused by: org.openqa.selenium.WebDriverException: java.lang.reflect.InvocationTargetException
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'dennisb-pc', ip: '192.168.56.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_45'
+Driver info: driver.version: unknown
+	at org.openqa.selenium.remote.server.DefaultDriverProvider.callConstructor(DefaultDriverProvider.java:69)
+	at org.openqa.selenium.remote.server.DefaultDriverProvider.newInstance(DefaultDriverProvider.java:53)
+	at org.openqa.selenium.remote.server.DefaultDriverFactory.newInstance(DefaultDriverFactory.java:54)
+	at org.openqa.selenium.remote.server.DefaultSession$BrowserCreator.call(DefaultSession.java:214)
+	at org.openqa.selenium.remote.server.DefaultSession$BrowserCreator.call(DefaultSession.java:1)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at org.openqa.selenium.remote.server.DefaultSession$1.run(DefaultSession.java:168)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.server.DefaultDriverProvider.callConstructor(DefaultDriverProvider.java:59)
+	... 9 more
+Caused by: java.lang.IllegalStateException: The path to the driver executable must be set by the webdriver.chrome.driver system property; for more information, see http://code.google.com/p/selenium/wiki/ChromeDriver. The latest version can be downloaded from http://chromedriver.storage.googleapis.com/index.html
+	at com.google.common.base.Preconditions.checkState(Preconditions.java:197)
+	at org.openqa.selenium.remote.service.DriverService.findExecutable(DriverService.java:110)
+	at org.openqa.selenium.chrome.ChromeDriverService.access$0(ChromeDriverService.java:1)
+	at org.openqa.selenium.chrome.ChromeDriverService$Builder.findDefaultExecutable(ChromeDriverService.java:118)
+	at org.openqa.selenium.remote.service.DriverService$Builder.build(DriverService.java:291)
+	at org.openqa.selenium.chrome.ChromeDriverService.createDefaultService(ChromeDriverService.java:82)
+	at org.openqa.selenium.chrome.ChromeDriver.<init>(ChromeDriver.java:139)
+	... 14 more
+15:34:04.238 WARN [16] org.openqa.selenium.remote.server.DriverServlet - Exception: The path to the driver executable must be set by the webdriver.chrome.driver system property; for more information, see http://code.google.com/p/selenium/wiki/ChromeDriver. The latest version can be downloaded from http://chromedriver.storage.googleapis.com/index.html
+15:34:28.920 INFO [16] org.openqa.selenium.remote.server.DriverServlet - Executing: [new session: Capabilities [{rotatable=false, nativeEvents=false, browserName=chrome, takesScreenshot=false, javascriptEnabled=true, version=, platform=ANY, cssSelectorsEnabled=true}]])
+15:34:28.922 INFO [26] org.openqa.selenium.remote.server.DefaultDriverProvider - Creating a new session for Capabilities [{rotatable=false, nativeEvents=false, browserName=chrome, takesScreenshot=false, javascriptEnabled=true, version=, platform=ANY, cssSelectorsEnabled=true}]
+15:34:28.929 WARN [16] org.openqa.selenium.remote.server.DriverServlet - Exception thrown
+java.util.concurrent.ExecutionException: org.openqa.selenium.WebDriverException: java.lang.reflect.InvocationTargetException
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'dennisb-pc', ip: '192.168.56.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_45'
+Driver info: driver.version: unknown
+	at java.util.concurrent.FutureTask.report(Unknown Source)
+	at java.util.concurrent.FutureTask.get(Unknown Source)
+	at org.openqa.selenium.remote.server.DefaultSession.execute(DefaultSession.java:175)
+	at org.openqa.selenium.remote.server.DefaultSession.<init>(DefaultSession.java:111)
+	at org.openqa.selenium.remote.server.DefaultSession.createSession(DefaultSession.java:88)
+	at org.openqa.selenium.remote.server.DefaultDriverSessions.newSession(DefaultDriverSessions.java:109)
+	at org.openqa.selenium.remote.server.handler.NewSession.handle(NewSession.java:57)
+	at org.openqa.selenium.remote.server.handler.NewSession.handle(NewSession.java:1)
+	at org.openqa.selenium.remote.server.rest.ResultConfig.handle(ResultConfig.java:110)
+	at org.openqa.selenium.remote.server.JsonHttpCommandHandler.handleRequest(JsonHttpCommandHandler.java:172)
+	at org.openqa.selenium.remote.server.DriverServlet.handleRequest(DriverServlet.java:201)
+	at org.openqa.selenium.remote.server.DriverServlet.doPost(DriverServlet.java:163)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727)
+	at org.openqa.selenium.remote.server.DriverServlet.service(DriverServlet.java:129)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.openqa.jetty.jetty.servlet.ServletHolder.handle(ServletHolder.java:428)
+	at org.openqa.jetty.jetty.servlet.ServletHandler.dispatch(ServletHandler.java:680)
+	at org.openqa.jetty.jetty.servlet.ServletHandler.handle(ServletHandler.java:571)
+	at org.openqa.jetty.http.HttpContext.handle(HttpContext.java:1526)
+	at org.openqa.jetty.http.HttpContext.handle(HttpContext.java:1479)
+	at org.openqa.jetty.http.HttpServer.service(HttpServer.java:920)
+	at org.openqa.jetty.http.HttpConnection.service(HttpConnection.java:820)
+	at org.openqa.jetty.http.HttpConnection.handleNext(HttpConnection.java:986)
+	at org.openqa.jetty.http.HttpConnection.handle(HttpConnection.java:837)
+	at org.openqa.jetty.http.SocketListener.handleConnection(SocketListener.java:243)
+	at org.openqa.jetty.util.ThreadedServer.handle(ThreadedServer.java:358)
+	at org.openqa.jetty.util.ThreadPool$PoolThread.run(ThreadPool.java:537)
+Caused by: org.openqa.selenium.WebDriverException: java.lang.reflect.InvocationTargetException
+Build info: version: '2.45.0', revision: '5017cb8', time: '2015-02-26 23:59:50'
+System info: host: 'dennisb-pc', ip: '192.168.56.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_45'
+Driver info: driver.version: unknown
+	at org.openqa.selenium.remote.server.DefaultDriverProvider.callConstructor(DefaultDriverProvider.java:69)
+	at org.openqa.selenium.remote.server.DefaultDriverProvider.newInstance(DefaultDriverProvider.java:53)
+	at org.openqa.selenium.remote.server.DefaultDriverFactory.newInstance(DefaultDriverFactory.java:54)
+	at org.openqa.selenium.remote.server.DefaultSession$BrowserCreator.call(DefaultSession.java:214)
+	at org.openqa.selenium.remote.server.DefaultSession$BrowserCreator.call(DefaultSession.java:1)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at org.openqa.selenium.remote.server.DefaultSession$1.run(DefaultSession.java:168)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.server.DefaultDriverProvider.callConstructor(DefaultDriverProvider.java:59)
+	... 9 more
+Caused by: java.lang.IllegalStateException: The path to the driver executable must be set by the webdriver.chrome.driver system property; for more information, see http://code.google.com/p/selenium/wiki/ChromeDriver. The latest version can be downloaded from http://chromedriver.storage.googleapis.com/index.html
+	at com.google.common.base.Preconditions.checkState(Preconditions.java:197)
+	at org.openqa.selenium.remote.service.DriverService.findExecutable(DriverService.java:110)
+	at org.openqa.selenium.chrome.ChromeDriverService.access$0(ChromeDriverService.java:1)
+	at org.openqa.selenium.chrome.ChromeDriverService$Builder.findDefaultExecutable(ChromeDriverService.java:118)
+	at org.openqa.selenium.remote.service.DriverService$Builder.build(DriverService.java:291)
+	at org.openqa.selenium.chrome.ChromeDriverService.createDefaultService(ChromeDriverService.java:82)
+	at org.openqa.selenium.chrome.ChromeDriver.<init>(ChromeDriver.java:139)
+	... 14 more
+15:34:28.930 WARN [16] org.openqa.selenium.remote.server.DriverServlet - Exception: The path to the driver executable must be set by the webdriver.chrome.driver system property; for more information, see http://code.google.com/p/selenium/wiki/ChromeDriver. The latest version can be downloaded from http://chromedriver.storage.googleapis.com/index.html
