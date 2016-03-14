@@ -170,7 +170,9 @@ func isPresentedCLIFlagValueByName(CLIFlags []CLIFlag, name string) bool {
 	return false
 }
 
-func runTestsUsingParameters(testList []aTestParams, CLIFlags []CLIFlag) {
+// Run all tests using parameters
+// Return count of failed tests
+func runTestsUsingParameters(testList []aTestParams, CLIFlags []CLIFlag) int {
 
 	var allParamsRequiredToTesting map[string]string
 	allParamsRequiredToTesting = make(map[string]string)
@@ -195,19 +197,27 @@ func runTestsUsingParameters(testList []aTestParams, CLIFlags []CLIFlag) {
 		os.Exit(1)
 	}
 
+	errorCount := 0
 	for _, curTest := range testList {
 		println(curTest.Name)
-		cmd := exec.Command("go", "run", "./Tests/Tests/"+curTest.Name+`/`+"main.go", "-HostName=http://aas-uat.graph.uk", "-SessionTimestamp=123", "-Locale=EN", "-AdminName=AdminName")
+
+		params := []string{"run"}
+		params = append(params, "./Tests/Tests/"+curTest.Name+`/`+"main.go")
+		for _, curParameterKey := range curTest.paramsUnmarshaled.Params { // collect parameters needed for the test.
+			params = append(params, "-"+curParameterKey.Name+"="+getCLIFlagValueByName(CLIFlags, curParameterKey.Name))
+		}
+		cmd := exec.Command("go", params...)
 		cmd.Env = os.Environ()
 		var out bytes.Buffer
+		var outerr bytes.Buffer
 		cmd.Stdout = &out
+		cmd.Stderr = &outerr
 		err := cmd.Run()
 
-		//var curTestParams aTestParams
-		//curTestParams.Name = curTestFile
-		//curTestParams.ParamsJSON = out.Bytes()
 		println(string(out.Bytes()))
 		if err != nil {
+			errorCount++
+			println(string(outerr.Bytes()))
 			println("Exit code: Error")
 		} else {
 			println("Exit code: Ok")
@@ -215,6 +225,7 @@ func runTestsUsingParameters(testList []aTestParams, CLIFlags []CLIFlag) {
 		println("")
 		//os.Exit(0)
 	}
+	return errorCount
 }
 
 func parseAllCLIFlags() []CLIFlag {
@@ -264,53 +275,21 @@ func main() {
 		testListFilteredByName := selectTestsByName(fullTestList, getCLIFlagValueByName(allCLIFlags, "name"))
 		testsWithParamsFilteredByName := loadTestParams(testListFilteredByName)
 		testsWithParamsFilteredByNameAndTag := selectTestsByTag(testsWithParamsFilteredByName, getCLIFlagValueByName(allCLIFlags, "tags"))
-		runTestsUsingParameters(testsWithParamsFilteredByNameAndTag, allCLIFlags)
-		os.Exit(0)
+		errorCount := runTestsUsingParameters(testsWithParamsFilteredByNameAndTag, allCLIFlags)
+		println("Totaly Failed:", errorCount)
+		os.Exit(errorCount)
 	default:
 		println("Incorrect action. Please run combat help for find available actions.")
 		os.Exit(1)
 	}
 	os.Exit(0)
 
-	cmdFlag := flag.String("cmd", "run", "action (run/help/list...)")
-	nameFlag := flag.String("name", "", "action (run/help/list...)")
-	tagsFlag := flag.String("tags", "", "action (run/help/list...)")
-	//paramsFlag := flag.String("name", "", "action (run/help/list...)")
-
-	flag.Parse()
-	defaultCmd := "run"
-	if *cmdFlag == "" {
-		cmdFlag = &defaultCmd
-	}
-	switch *cmdFlag {
-	case "help":
-		println("Help")
-		os.Exit(0)
-	case "list":
-		fullTestList := getFullTestList()
-		selectTestsByName(fullTestList, *nameFlag)
-		testListFilteredByName := selectTestsByName(fullTestList, *nameFlag)
-		testsWithParamsFilteredByName := loadTestParams(testListFilteredByName)
-
-		testsWithParamsFilteredByNameAndTag := selectTestsByTag(testsWithParamsFilteredByName, *tagsFlag)
-		listTestsOrderByName(testsWithParamsFilteredByNameAndTag)
-		os.Exit(0)
-	case "run":
-		println("Run")
-		os.Exit(0)
-	default:
-		println("Incorrect action. Please run combat help for find available actions.")
-		os.Exit(1)
-	}
-
 	//Парсим все значения параметров из CLI.
 
 	//Сначала фильтруем тесты по имени, потом по тегам.
 	//combat run -name="lynx" -tags="xnd"
 	//-name
-	//-nameReg
 	//-tags
-	//-tagsReg
 	//-locale="sdf"
 	//-nyx="sdf"
 
