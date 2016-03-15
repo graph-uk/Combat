@@ -138,6 +138,7 @@ func listTestsOrderByParameter(allTestsWithParams []aTestParams) {
 			if len(allParametersVariants[curParameterKey]) > 1 {
 
 			}
+			println()
 		}
 		println()
 	}
