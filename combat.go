@@ -71,6 +71,49 @@ func listTestsOrderByName(allTestsWithParams []aTestParams) {
 	}
 }
 
+func listTestsOrderByTag(allTestsWithParams []aTestParams) {
+	var allTags map[string][]string
+	allTags = make(map[string][]string)
+
+	for _, curTestParams := range allTestsWithParams {
+		for _, curTag := range curTestParams.paramsUnmarshaled.Tags {
+			allTags[curTag] = append(allTags[curTag], curTestParams.Name)
+		}
+	}
+
+	for curTagKey, curTagTests := range allTags {
+		fmt.Printf("%s(%d)\r\n", curTagKey, len(curTagTests))
+		for _, curTagTest := range curTagTests {
+			println(curTagTest)
+		}
+		println()
+	}
+}
+
+func listTestsOrderByParameter(allTestsWithParams []aTestParams) {
+	var allParameters map[string][]string
+	allParameters = make(map[string][]string)
+
+	for _, curTestParams := range allTestsWithParams {
+		for _, curParameter := range curTestParams.paramsUnmarshaled.Params {
+			allParameters[curParameter.Name] = append(allParameters[curParameter.Name], curTestParams.Name)
+		}
+	}
+
+	for curParameterKey, curParameter := range allParameters {
+		fmt.Printf("%s(%d)\r\n", curParameterKey, len(curParameter))
+
+	}
+
+	//	for curTagKey, curTagTests := range allTags {
+	//		fmt.Printf("%s(%d)\r\n", curTagKey, len(curTagTests))
+	//		for _, curTagTest := range curTagTests {
+	//			println(curTagTest)
+	//		}
+	//		println()
+	//	}
+}
+
 func loadTestParams(testNames []string) []aTestParams {
 	// collect all test params
 	var allTestsWithParams []aTestParams
@@ -281,6 +324,20 @@ func main() {
 		testsWithParamsFilteredByName := loadTestParams(testListFilteredByName)
 		testsWithParamsFilteredByNameAndTag := selectTestsByTag(testsWithParamsFilteredByName, getCLIFlagValueByName(allCLIFlags, "tags"))
 		listTestsOrderByName(testsWithParamsFilteredByNameAndTag)
+		os.Exit(0)
+	case "tags":
+		fullTestList := getFullTestList()
+		testListFilteredByName := selectTestsByName(fullTestList, getCLIFlagValueByName(allCLIFlags, "name"))
+		testsWithParamsFilteredByName := loadTestParams(testListFilteredByName)
+		testsWithParamsFilteredByNameAndTag := selectTestsByTag(testsWithParamsFilteredByName, getCLIFlagValueByName(allCLIFlags, "tags"))
+		listTestsOrderByTag(testsWithParamsFilteredByNameAndTag)
+		os.Exit(0)
+	case "params":
+		fullTestList := getFullTestList()
+		testListFilteredByName := selectTestsByName(fullTestList, getCLIFlagValueByName(allCLIFlags, "name"))
+		testsWithParamsFilteredByName := loadTestParams(testListFilteredByName)
+		testsWithParamsFilteredByNameAndTag := selectTestsByTag(testsWithParamsFilteredByName, getCLIFlagValueByName(allCLIFlags, "tags"))
+		listTestsOrderByParameter(testsWithParamsFilteredByNameAndTag)
 		os.Exit(0)
 	case "run":
 		fullTestList := getFullTestList()
