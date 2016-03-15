@@ -40,6 +40,9 @@ func listTestsOrderByName(allTestsWithParams []aTestParams) {
 	//println(len(allTestsWithParams))
 	for _, curTestParams := range allTestsWithParams {
 		println(curTestParams.Name)
+		//fmt.Printf("%-20s %-20s", "Name:", curTestParams.Name)
+		//println()
+		println("-------------------------------------------------")
 		var params UnmarshaledTestParams
 		if err := json.Unmarshal(curTestParams.ParamsJSON, &params); err != nil {
 			log.Println("Cannot parse json for test: " + curTestParams.Name)
@@ -54,6 +57,15 @@ func listTestsOrderByName(allTestsWithParams []aTestParams) {
 			}
 			println()
 		}
+		println("-------------------------------------------------")
+		fmt.Printf("%-20s ", "Tags:")
+		for curTagKey, curTag := range params.Tags {
+			print(curTag)
+			if curTagKey < len(params.Tags)-1 {
+				print(",")
+			}
+		}
+		println()
 		println()
 		//curTestParams.paramsUnmarshaled = params
 	}
@@ -276,7 +288,7 @@ func main() {
 		testsWithParamsFilteredByName := loadTestParams(testListFilteredByName)
 		testsWithParamsFilteredByNameAndTag := selectTestsByTag(testsWithParamsFilteredByName, getCLIFlagValueByName(allCLIFlags, "tags"))
 		errorCount := runTestsUsingParameters(testsWithParamsFilteredByNameAndTag, allCLIFlags)
-		println("Totaly Failed:", errorCount)
+		println("Total failed:", errorCount)
 		os.Exit(errorCount)
 	default:
 		println("Incorrect action. Please run combat help for find available actions.")
