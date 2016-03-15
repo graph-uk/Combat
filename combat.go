@@ -36,6 +36,15 @@ type UnmarshaledTestParams struct {
 	Tags   []string
 }
 
+func stringInSlice(a string, list []string) bool {
+	for _, b := range list {
+		if b == a {
+			return true
+		}
+	}
+	return false
+}
+
 func listTestsOrderByName(allTestsWithParams []aTestParams) {
 	//println(len(allTestsWithParams))
 	for _, curTestParams := range allTestsWithParams {
@@ -91,27 +100,47 @@ func listTestsOrderByTag(allTestsWithParams []aTestParams) {
 }
 
 func listTestsOrderByParameter(allTestsWithParams []aTestParams) {
-	var allParameters map[string][]string
-	allParameters = make(map[string][]string)
+	var allParametersTests map[string][]string
+	allParametersTests = make(map[string][]string)
+
+	var allParametersVariants map[string][]string
+	allParametersVariants = make(map[string][]string)
 
 	for _, curTestParams := range allTestsWithParams {
 		for _, curParameter := range curTestParams.paramsUnmarshaled.Params {
-			allParameters[curParameter.Name] = append(allParameters[curParameter.Name], curTestParams.Name)
+			allParametersTests[curParameter.Name] = append(allParametersTests[curParameter.Name], curTestParams.Name)
+			if curParameter.Type == "EnumParam" {
+				for _, curVariant := range curParameter.Variants {
+					if !stringInSlice(curVariant, allParametersVariants[curParameter.Name]) {
+						allParametersVariants[curParameter.Name] = append(allParametersVariants[curParameter.Name], curVariant)
+					}
+				}
+			}
 		}
 	}
 
-	for curParameterKey, curParameter := range allParameters {
-		fmt.Printf("%s(%d)\r\n", curParameterKey, len(curParameter))
+	for curParameterKey, curParameter := range allParametersTests {
+		print(curParameterKey)
+		if len(allParametersVariants[curParameterKey]) > 1 {
+			print("(")
+			for curVariantKey, curVariant := range allParametersVariants[curParameterKey] {
+				print(curVariant)
+				if curVariantKey < len(allParametersVariants[curParameterKey])-1 {
+					print(",")
+				}
+			}
+			print(")")
+		}
+		println()
+		println("-------------------------------------------------")
+		for _, curParameterTest := range curParameter {
+			print(curParameterTest)
+			if len(allParametersVariants[curParameterKey]) > 1 {
 
+			}
+		}
+		println()
 	}
-
-	//	for curTagKey, curTagTests := range allTags {
-	//		fmt.Printf("%s(%d)\r\n", curTagKey, len(curTagTests))
-	//		for _, curTagTest := range curTagTests {
-	//			println(curTagTest)
-	//		}
-	//		println()
-	//	}
 }
 
 func loadTestParams(testNames []string) []aTestParams {
