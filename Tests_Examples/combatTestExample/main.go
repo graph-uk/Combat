@@ -1,8 +1,8 @@
 package main
 
 import (
-	"combat/Tests/Tests_shared/aTest"
-	"combat/Tests/Tests_shared/aas"
+	"combat/Tests_Examples/Tests/Tests_shared/aTest"
+	"combat/Tests_Examples/Tests/Tests_shared/aas"
 	"log"
 	"os"
 )
