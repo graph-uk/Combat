@@ -52,3 +52,8 @@ func (t *Test) LoadTagsAndParams() error {
 
 	return nil
 }
+
+func (t *Test) IsParametersAllowed(map[string][]string) bool {
+
+	return true
+}

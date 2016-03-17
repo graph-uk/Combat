@@ -313,10 +313,10 @@ func main() {
 		testManager.PrintListOrderedByTag()
 	case "params":
 		testManager.PrintListOrderedByParameter()
-	case "run":
-		println("Run")
+	case "cases":
+		testManager.PrintCases()
 	default:
-		println("Incorrect action. Please run combat help for find available actions.")
+		println("Incorrect action. Please run \"Combat help\" for find available actions.")
 		os.Exit(1)
 	}
 	os.Exit(0)

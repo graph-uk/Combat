@@ -11,7 +11,7 @@ import (
 // This is the base struct contain all required in all test fields
 type TestManager struct {
 	tests                map[string]*Test
-	CLIParameters        map[string]string
+	parametersFromCLI    map[string]string
 	testMergedParameters TestParameter
 }
 func stringInSlice(a string, list []string) bool {
@@ -25,29 +25,27 @@ func stringInSlice(a string, list []string) bool {
 
 // Parse all parameters from CLI. Fill default values if needed.
 func (t *TestManager) parseCLIParameters() {
-	t.CLIParameters = CLIParser.ParseAllCLIFlags()
-	if _, ok := t.CLIParameters["name"]; !ok {
-		t.CLIParameters["name"] = ""
+	t.parametersFromCLI = CLIParser.ParseAllCLIFlags()
+	if _, ok := t.parametersFromCLI["name"]; !ok {
+		t.parametersFromCLI["name"] = ""
 	}
 
-	if _, ok := t.CLIParameters["tag"]; !ok {
-		t.CLIParameters["tag"] = ""
+	if _, ok := t.parametersFromCLI["tag"]; !ok {
+		t.parametersFromCLI["tag"] = ""
 	}
 }
 
 func (t *TestManager) Init(directory string, params map[string]string) error {
 	t.parseCLIParameters()
-	t.SelectAllTests(directory)
-	t.FilterTestsByName()
-	t.FilterTestsByTag()
+	t.selectAllTests(directory)
+	t.filterTestsByName()
+	t.filterTestsByTag()
 	return nil //a.AAS.Browser.Log
 }
 
-func (t *TestManager) RunTests() {
-}
 
 //Select all tests in the directory, load that's parameters, and collect it to t.tests
-func (t *TestManager) SelectAllTests(directory string) error {
+func (t *TestManager) selectAllTests(directory string) error {
 	// clear test list
 	t.tests = make(map[string]*Test)
 
@@ -82,8 +80,8 @@ func (t *TestManager) SelectAllTests(directory string) error {
 }
 
 // Saves in t.tests the tests with a suitable name only
-func (t *TestManager) FilterTestsByName() error {
-	name := t.CLIParameters["Name"]
+func (t *TestManager) filterTestsByName() error {
+	name := t.parametersFromCLI["Name"]
 	for curTestName, _ := range t.tests {
 		match, err := regexp.MatchString(name, curTestName)
 		if err != nil {
@@ -97,8 +95,8 @@ func (t *TestManager) FilterTestsByName() error {
 }
 
 // Saves in t.tests the tests with a suitable tag only
-func (t *TestManager) FilterTestsByTag() error {
-	tag := t.CLIParameters["tag"]
+func (t *TestManager) filterTestsByTag() error {
+	tag := t.parametersFromCLI["tag"]
 	for curTestName, curTest := range t.tests {
 		tagFound := false
 		for _, curTag := range curTest.tags {
@@ -158,7 +156,7 @@ func (t *TestManager) PrintListOrderedByTag() error {
 	return nil
 }
 
-
+// Print to STDOUT list of tests ordered by parameter
 func (t *TestManager) PrintListOrderedByParameter() error {
 		var allParametersTests map[string][]string
 		allParametersTests = make(map[string][]string)
@@ -203,5 +201,30 @@ func (t *TestManager) PrintListOrderedByParameter() error {
 			}
 			fmt.Println()
 		}
+	return nil
+}
+
+
+// Print to STDOUT all cases are allowed for this parameters combination
+func (t *TestManager) PrintCases() error {
+	var allEnumParameters map[string][]string
+	allEnumParameters = make(map[string][]string)
+
+	for _, curTest := range t.tests {
+		for _, curParameter := range curTest.params {
+			if curParameter.Type == "EnumParam" {
+				allEnumParameters[curParameter.Name] = []string{}
+				for _, curVariant := range curParameter.Variants {
+					if !stringInSlice(curVariant, allEnumParameters[curParameter.Name]) {
+						allEnumParameters[curParameter.Name] = append(allEnumParameters[curParameter.Name], curVariant)
+					}
+				}
+			}
+		}
+	}
+
+	for curParameterName, curParameterVariants := range allEnumParameters{
+		fmt.Println(curParameterName, curParameterVariants)
+	}
 	return nil
 }
