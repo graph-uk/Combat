@@ -1,9 +1,9 @@
 package CLIParser
 
 import (
-	"flag"
+	//	"flag"
 	"os"
-	"regexp"
+	//	"regexp"
 	"strings"
 )
 
@@ -30,29 +30,6 @@ func GetCLIFlagValueByName(CLIFlags []CLIFlag, name string) string {
 	return "" // return empty string if flag not found
 }
 
-func ParseAllCLIFlags() []CLIFlag {
-	var allFlags []CLIFlag
-	re := regexp.MustCompile("-.*=")
-	for _, curArgument := range os.Args {
-		flagName := re.FindString(curArgument)
-		if len(flagName) > 2 {
-			flagName = flagName[:len(flagName)-1] // trim last character
-			flagName = flagName[1:]               // trim first character
-			flagName = strings.TrimSpace(flagName)
-			var curFlag CLIFlag
-			curFlag.Name = flagName
-			allFlags = append(allFlags, curFlag)
-		}
-
-	}
-	for curFlagIndex, curFlag := range allFlags {
-		flag.StringVar(&allFlags[curFlagIndex].Value, curFlag.Name, "", "variant")
-	}
-
-	flag.Parse()
-	return allFlags
-}
-
 //-------------------------------------------------------------------------------
 func GetAction() string {
 	if len(os.Args) > 1 {
@@ -65,5 +42,22 @@ func GetAction() string {
 func GetParams() map[string]string {
 	var result map[string]string
 	result = make(map[string]string)
+	return result
+}
+
+// parse parameters like -y=someText and return it all.
+// name is begin from first letter of argument. Ends on "="
+// Value begin from "=" and end with space
+func ParseAllCLIFlags() map[string]string {
+	var result map[string]string
+	result = make(map[string]string)
+	for _, curCLIArgument := range os.Args {
+		if curCLIArgument[0] == '-' {
+			equalPos := strings.Index(curCLIArgument, "=")
+			name := curCLIArgument[1:equalPos]
+			value := curCLIArgument[equalPos+1:]
+			result[name] = value
+		}
+	}
 	return result
 }

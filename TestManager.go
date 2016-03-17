@@ -1,6 +1,7 @@
 package main
 
 import (
+	"Combat/CLIParser"
 	"io/ioutil"
 	"log"
 	"regexp"
@@ -13,8 +14,27 @@ type TestManager struct {
 	testMergedParameters TestParameter
 }
 
+// Parse all parameters from CLI. Fill default values if needed.
+func (t *TestManager) parseCLIParameters() {
+	t.CLIParameters = CLIParser.ParseAllCLIFlags()
+	if _, ok := t.CLIParameters["name"]; !ok {
+		t.CLIParameters["name"] = ""
+	}
+
+	if _, ok := t.CLIParameters["tag"]; !ok {
+		t.CLIParameters["tag"] = ""
+	}
+}
+
 func (t *TestManager) Init(directory string, params map[string]string) error {
+	t.parseCLIParameters()
 	t.SelectAllTests(directory)
+	t.FilterTestsByName(t.CLIParameters["name"])
+	t.FilterTestsByTag(t.CLIParameters["tag"])
+
+	for curTestName, _ := range t.tests {
+		println(curTestName)
+	}
 
 	return nil //a.AAS.Browser.Log
 }
@@ -60,9 +80,20 @@ func (t *TestManager) SelectAllTests(directory string) error {
 		}
 	}
 
-	// load params of each test in t.test
 	for _, curTest := range t.tests {
 		curTest.LoadTagsAndParams()
+		//GO BUG?
+		//This line prints correct values, but outside of cycle - zero len
+		//println(len(curTest.tags))
+	}
+	// load params of each test in t.test
+
+	//GO BUG?
+	//This line prints correct values, but outside of cycle - zero len
+	//println(len(curTest.tags))
+
+	for _, curTest := range t.tests {
+		println(len(curTest.tags))
 	}
 
 	return nil
@@ -71,9 +102,9 @@ func (t *TestManager) SelectAllTests(directory string) error {
 // Saves in t.tests the tests with a suitable name only
 func (t *TestManager) FilterTestsByName(name string) error {
 	for curTestName, _ := range t.tests {
-		match, err := regexp.MatchString(curTestName, name)
+		match, err := regexp.MatchString(name, curTestName)
 		if err != nil {
-			log.Fatal("Incorrect regexp for name")
+			log.Fatal("Incorrect regexp in name parameter")
 		}
 		if !match {
 			delete(t.tests, curTestName)
@@ -82,16 +113,27 @@ func (t *TestManager) FilterTestsByName(name string) error {
 	return nil
 }
 
-//func selectTestsByName(fullTestList []string, name string) []string {
-//	var selectedTests []string
-//	for _, curTest := range fullTestList {
-//		match, err := regexp.MatchString(name, curTest)
-//		if err != nil {
-//			log.Fatal("Incorrect regexp for name")
-//		}
-//		if match {
-//			selectedTests = append(selectedTests, curTest)
-//		}
-//	}
-//	return selectedTests
-//}
+// Saves in t.tests the tests with a suitable tag only
+func (t *TestManager) FilterTestsByTag(tag string) error {
+	for curTestName, curTest := range t.tests {
+		tagFound := false
+		for _, curTag := range curTest.tags {
+			println("xcvxcv")
+			println(curTag)
+			println(tag)
+			match, err := regexp.MatchString(tag, curTag)
+			println(match)
+			if err != nil {
+				log.Fatal("Incorrect regexp in name parameter")
+			}
+			if match {
+				tagFound = true
+				break
+			}
+		}
+		if !tagFound {
+			delete(t.tests, curTestName)
+		}
+	}
+	return nil
+}

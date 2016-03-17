@@ -38,6 +38,7 @@ func (t *Test) LoadTagsAndParams() error {
 	//	if err != nil {
 	//		log.Fatal(err)
 	//	}
+	//println("LoadTagsAndParams: " + out.String())
 	var TestParams UnmarshaledTestParams
 	if err := json.Unmarshal(out.Bytes(), &TestParams); err != nil {
 		log.Println("Cannot parse json for test: " + t.name)
@@ -45,6 +46,7 @@ func (t *Test) LoadTagsAndParams() error {
 		panic(err)
 	}
 	//t.params = TestParams.Params
+	//println("LoadTagsAndParams: " + TestParams.Tags[0])
 	t.tags = TestParams.Tags
 	for _, curParameter := range TestParams.Params {
 		t.params[curParameter.Name] = curParameter
