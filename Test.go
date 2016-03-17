@@ -30,7 +30,6 @@ func (t *Test) LoadTagsAndParams() error {
 	// get test's params in JSON
 
 	cmd := exec.Command("go", "run", t.directory+"/"+t.name+`/`+"main.go", "paramsJSON")
-	//println("go", "run", t.directory+"/"+t.name+`/`+"main.go", "paramsJSON")
 	cmd.Env = os.Environ()
 	var out bytes.Buffer
 	cmd.Stdout = &out
@@ -45,9 +44,8 @@ func (t *Test) LoadTagsAndParams() error {
 		log.Println("JSON data: " + out.String())
 		panic(err)
 	}
-	//t.params = TestParams.Params
-	//println("LoadTagsAndParams: " + TestParams.Tags[0])
 	t.tags = TestParams.Tags
+
 	for _, curParameter := range TestParams.Params {
 		t.params[curParameter.Name] = curParameter
 	}

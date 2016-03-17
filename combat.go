@@ -308,9 +308,9 @@ func main() {
 
 	switch action {
 	case "list":
-		println("List")
+		testManager.PrintListOrderedByNames()
 	case "tags":
-		println("Tags")
+		testManager.PrintListOrderedByTag()
 	case "params":
 		println("Params")
 	case "run":
