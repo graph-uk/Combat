@@ -53,7 +53,7 @@ func (t *Test) LoadTagsAndParams() error {
 	return nil
 }
 
-func (t *Test) IsParametersAllowed(map[string][]string) bool {
+func (t *Test) IsParametersCombinationAllowed(map[string][]string) bool {
 
 	return true
 }

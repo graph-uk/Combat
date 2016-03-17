@@ -12,6 +12,7 @@ import (
 	//"os/exec"
 	//	"regexp"
 	//	"strings"
+	//"fmt"
 )
 
 // This is the base struct contain all required in all test fields
@@ -292,6 +293,9 @@ import (
 //}
 
 func main() {
+
+
+
 	action := CLIParser.GetAction() //"run" action by default
 	if action == "" {
 		action = "run"

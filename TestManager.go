@@ -14,6 +14,8 @@ type TestManager struct {
 	parametersFromCLI    map[string]string
 	testMergedParameters TestParameter
 }
+
+// check is a string presented in a slice
 func stringInSlice(a string, list []string) bool {
 	for _, b := range list {
 		if b == a {
@@ -35,14 +37,14 @@ func (t *TestManager) parseCLIParameters() {
 	}
 }
 
+// parse parameters from CLI, load parameters of each test, and filter tests by CLI parameters (name,tag)
 func (t *TestManager) Init(directory string, params map[string]string) error {
 	t.parseCLIParameters()
 	t.selectAllTests(directory)
 	t.filterTestsByName()
 	t.filterTestsByTag()
-	return nil //a.AAS.Browser.Log
+	return nil
 }
-
 
 //Select all tests in the directory, load that's parameters, and collect it to t.tests
 func (t *TestManager) selectAllTests(directory string) error {
@@ -73,6 +75,7 @@ func (t *TestManager) selectAllTests(directory string) error {
 		}
 	}
 
+	// load allowed parameters of each test
 	for _, curTest := range t.tests {
 		curTest.LoadTagsAndParams()
 	}
@@ -158,73 +161,92 @@ func (t *TestManager) PrintListOrderedByTag() error {
 
 // Print to STDOUT list of tests ordered by parameter
 func (t *TestManager) PrintListOrderedByParameter() error {
-		var allParametersTests map[string][]string
-		allParametersTests = make(map[string][]string)
+	var allParametersTests map[string][]string
+	allParametersTests = make(map[string][]string)
 
-		var allParametersVariants map[string][]string
-		allParametersVariants = make(map[string][]string)
-
-		for _, curTest := range t.tests {
-			for _, curParameter := range curTest.params {
-				allParametersTests[curParameter.Name] = append(allParametersTests[curParameter.Name], curTest.name)
-				if curParameter.Type == "EnumParam" {
-					for _, curVariant := range curParameter.Variants {
-						if !stringInSlice(curVariant, allParametersVariants[curParameter.Name]) {
-							allParametersVariants[curParameter.Name] = append(allParametersVariants[curParameter.Name], curVariant)
-						}
-					}
-				}
-			}
-		}
-
-		for curParameterKey, curParameter := range allParametersTests {
-			fmt.Print(curParameterKey)
-			if len(allParametersVariants[curParameterKey]) > 1 {
-				fmt.Print("(")
-				for curVariantKey, curVariant := range allParametersVariants[curParameterKey] {
-					fmt.Print(curVariant)
-					if curVariantKey < len(allParametersVariants[curParameterKey])-1 {
-						fmt.Print(",")
-					}
-				}
-				fmt.Print(")")
-			}
-			fmt.Println()
-			fmt.Println("-------------------------------------------------")
-			for _, curParameterTest := range curParameter {
-				if t.tests[curParameterTest].params[curParameterKey].Type == "EnumParam"{
-					fmt.Println(curParameterTest, t.tests[curParameterTest].params[curParameterKey].Variants)
-				}else{
-					fmt.Println(curParameterTest)
-				}
-
-			}
-			fmt.Println()
-		}
-	return nil
-}
-
-
-// Print to STDOUT all cases are allowed for this parameters combination
-func (t *TestManager) PrintCases() error {
-	var allEnumParameters map[string][]string
-	allEnumParameters = make(map[string][]string)
+	var allParametersVariants map[string][]string
+	allParametersVariants = make(map[string][]string)
 
 	for _, curTest := range t.tests {
 		for _, curParameter := range curTest.params {
+			allParametersTests[curParameter.Name] = append(allParametersTests[curParameter.Name], curTest.name)
 			if curParameter.Type == "EnumParam" {
-				allEnumParameters[curParameter.Name] = []string{}
 				for _, curVariant := range curParameter.Variants {
-					if !stringInSlice(curVariant, allEnumParameters[curParameter.Name]) {
-						allEnumParameters[curParameter.Name] = append(allEnumParameters[curParameter.Name], curVariant)
+					if !stringInSlice(curVariant, allParametersVariants[curParameter.Name]) {
+						allParametersVariants[curParameter.Name] = append(allParametersVariants[curParameter.Name], curVariant)
 					}
 				}
 			}
 		}
 	}
 
-	for curParameterName, curParameterVariants := range allEnumParameters{
+	for curParameterKey, curParameter := range allParametersTests {
+		fmt.Print(curParameterKey)
+		if len(allParametersVariants[curParameterKey]) > 1 {
+			fmt.Print("(")
+			for curVariantKey, curVariant := range allParametersVariants[curParameterKey] {
+				fmt.Print(curVariant)
+				if curVariantKey < len(allParametersVariants[curParameterKey])-1 {
+					fmt.Print(",")
+				}
+			}
+			fmt.Print(")")
+		}
+		fmt.Println()
+		fmt.Println("-------------------------------------------------")
+		for _, curParameterTest := range curParameter {
+			if t.tests[curParameterTest].params[curParameterKey].Type == "EnumParam" {
+				fmt.Println(curParameterTest, t.tests[curParameterTest].params[curParameterKey].Variants)
+			} else {
+				fmt.Println(curParameterTest)
+			}
+
+		}
+		fmt.Println()
+	}
+	return nil
+}
+
+// Print to STDOUT all cases are allowed for this parameters combination
+func (t *TestManager) PrintCases() error {
+	var allParameters map[string][]string
+	allParameters = make(map[string][]string)
+
+	// collect all params with all variants for each
+	for _, curTest := range t.tests {
+		for _, curParameter := range curTest.params {
+			if curParameter.Type == "EnumParam" {
+				allParameters[curParameter.Name] = []string{}
+				for _, curVariant := range curParameter.Variants {
+					if !stringInSlice(curVariant, allParameters[curParameter.Name]) {
+						allParameters[curParameter.Name] = append(allParameters[curParameter.Name], curVariant)
+					}
+				}
+			}else{
+				allParameters[curParameter.Name] = []string{t.parametersFromCLI[curParameter.Name]}
+			}
+		}
+	}
+
+	for curParameterName, curParameterVariants := range allParameters {
 		fmt.Println(curParameterName, curParameterVariants)
 	}
+
+	allCases := getAllCombinations(allParameters)
+
+	//print params...
+	for curCombineIndex, curCombine := range allCases{
+		fmt.Print(curCombineIndex," ")
+		for curParameterName, _ := range allParameters {
+			fmt.Print(curParameterName, "=", (*curCombine)[curParameterName]," ")
+		}
+		fmt.Println()
+	}
+	//fmt.Println(curCombineIndex, (*curCombine)["Local"], (*curCombine)["platform"], (*curCombine)["planet"], (*curCombine)["lynxy"])
+	//fmt.Println(curCombineIndex, (*curCombine)["Locale"], (*curCombine)["Resolution"])
+	//fmt.Println(*curCombine)
+	//}
+	//println(allCases[0]*["resolution"])
+
 	return nil
 }

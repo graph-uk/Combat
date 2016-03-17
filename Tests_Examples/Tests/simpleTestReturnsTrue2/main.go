@@ -12,6 +12,7 @@ type theTest struct {
 		HostName         aTest.StringParam
 		SessionTimestamp aTest.StringParam
 		Locale           aTest.EnumParam
+		Resolution       aTest.EnumParam
 	}
 }
 
@@ -21,6 +22,9 @@ func createNewTest() (*theTest, error) {
 	result.params.Locale.AcceptedValues = append(result.params.Locale.AcceptedValues, "EN")
 	result.params.Locale.AcceptedValues = append(result.params.Locale.AcceptedValues, "RU")
 	result.params.Locale.AcceptedValues = append(result.params.Locale.AcceptedValues, "US")
+	result.params.Resolution.AcceptedValues = append(result.params.Resolution.AcceptedValues, "DesktopView")
+	result.params.Resolution.AcceptedValues = append(result.params.Resolution.AcceptedValues, "MobileView")
+
 	//result.params.AdminName.Value = "TestDefaultValue"
 	result.aTest.Tags = append(result.aTest.Tags, "NotForLive")
 	result.aTest.Tags = append(result.aTest.Tags, "Lynx")
