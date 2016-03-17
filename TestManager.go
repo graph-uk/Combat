@@ -14,6 +14,14 @@ type TestManager struct {
 	CLIParameters        map[string]string
 	testMergedParameters TestParameter
 }
+func stringInSlice(a string, list []string) bool {
+	for _, b := range list {
+		if b == a {
+			return true
+		}
+	}
+	return false
+}
 
 // Parse all parameters from CLI. Fill default values if needed.
 func (t *TestManager) parseCLIParameters() {
@@ -30,8 +38,8 @@ func (t *TestManager) parseCLIParameters() {
 func (t *TestManager) Init(directory string, params map[string]string) error {
 	t.parseCLIParameters()
 	t.SelectAllTests(directory)
-	t.FilterTestsByName(t.CLIParameters["name"])
-	t.FilterTestsByTag(t.CLIParameters["tag"])
+	t.FilterTestsByName()
+	t.FilterTestsByTag()
 	return nil //a.AAS.Browser.Log
 }
 
@@ -74,7 +82,8 @@ func (t *TestManager) SelectAllTests(directory string) error {
 }
 
 // Saves in t.tests the tests with a suitable name only
-func (t *TestManager) FilterTestsByName(name string) error {
+func (t *TestManager) FilterTestsByName() error {
+	name := t.CLIParameters["Name"]
 	for curTestName, _ := range t.tests {
 		match, err := regexp.MatchString(name, curTestName)
 		if err != nil {
@@ -88,7 +97,8 @@ func (t *TestManager) FilterTestsByName(name string) error {
 }
 
 // Saves in t.tests the tests with a suitable tag only
-func (t *TestManager) FilterTestsByTag(tag string) error {
+func (t *TestManager) FilterTestsByTag() error {
+	tag := t.CLIParameters["tag"]
 	for curTestName, curTest := range t.tests {
 		tagFound := false
 		for _, curTag := range curTest.tags {
@@ -145,39 +155,53 @@ func (t *TestManager) PrintListOrderedByTag() error {
 
 		fmt.Println()
 	}
-	//
-	//for _, curTest := range(t.tests) {
-	//	fmt.Println(curTest.name)
-	//	fmt.Println("-------------------------------------------------")
-	//
-	//	for _, curParam := range curTest.params {
-	//		fmt.Printf("%-20s %-20s", curParam.Name, curParam.Type)
-	//		if curParam.Type == "EnumParam" {
-	//			for _, curEnumVariant := range curParam.Variants {
-	//				fmt.Print(curEnumVariant + " ")
-	//			}
-	//		}
-	//		fmt.Println()
-	//	}
-	//}
 	return nil
 }
 
-//func listTestsOrderByTag(allTestsWithParams []aTestParams) {
-//	var allTags map[string][]string
-//	allTags = make(map[string][]string)
 
-//	for _, curTestParams := range allTestsWithParams {
-//		for _, curTag := range curTestParams.paramsUnmarshaled.Tags {
-//			allTags[curTag] = append(allTags[curTag], curTestParams.Name)
-//		}
-//	}
+func (t *TestManager) PrintListOrderedByParameter() error {
+		var allParametersTests map[string][]string
+		allParametersTests = make(map[string][]string)
 
-//	for curTagKey, curTagTests := range allTags {
-//		fmt.Printf("%s(%d)\r\n", curTagKey, len(curTagTests))
-//		for _, curTagTest := range curTagTests {
-//			println(curTagTest)
-//		}
-//		println()
-//	}
-//}
+		var allParametersVariants map[string][]string
+		allParametersVariants = make(map[string][]string)
+
+		for _, curTest := range t.tests {
+			for _, curParameter := range curTest.params {
+				allParametersTests[curParameter.Name] = append(allParametersTests[curParameter.Name], curTest.name)
+				if curParameter.Type == "EnumParam" {
+					for _, curVariant := range curParameter.Variants {
+						if !stringInSlice(curVariant, allParametersVariants[curParameter.Name]) {
+							allParametersVariants[curParameter.Name] = append(allParametersVariants[curParameter.Name], curVariant)
+						}
+					}
+				}
+			}
+		}
+
+		for curParameterKey, curParameter := range allParametersTests {
+			fmt.Print(curParameterKey)
+			if len(allParametersVariants[curParameterKey]) > 1 {
+				fmt.Print("(")
+				for curVariantKey, curVariant := range allParametersVariants[curParameterKey] {
+					fmt.Print(curVariant)
+					if curVariantKey < len(allParametersVariants[curParameterKey])-1 {
+						fmt.Print(",")
+					}
+				}
+				fmt.Print(")")
+			}
+			fmt.Println()
+			fmt.Println("-------------------------------------------------")
+			for _, curParameterTest := range curParameter {
+				if t.tests[curParameterTest].params[curParameterKey].Type == "EnumParam"{
+					fmt.Println(curParameterTest, t.tests[curParameterTest].params[curParameterKey].Variants)
+				}else{
+					fmt.Println(curParameterTest)
+				}
+
+			}
+			fmt.Println()
+		}
+	return nil
+}

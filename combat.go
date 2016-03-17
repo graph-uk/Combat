@@ -312,7 +312,7 @@ func main() {
 	case "tags":
 		testManager.PrintListOrderedByTag()
 	case "params":
-		println("Params")
+		testManager.PrintListOrderedByParameter()
 	case "run":
 		println("Run")
 	default:
