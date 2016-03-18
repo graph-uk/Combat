@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+//	"fmt"
 )
 
 type Test struct {
@@ -53,7 +54,30 @@ func (t *Test) LoadTagsAndParams() error {
 	return nil
 }
 
-func (t *Test) IsParametersCombinationAllowed(map[string][]string) bool {
+func (t *Test) GetCasesByParameterCombinations(paramCombinations []*map[string]string) [][]string {
+	var result [][]string
 
-	return true
+	//fmt.Println(t.name)
+
+	for _, curCombination := range paramCombinations{
+		//fmt.Print(*curCombination)
+		curCombinationAccepted := true
+		curCombinationCase := []string{t.name}
+		for nameOfcurParamOfTest, curParamOfTest := range t.params{
+			if curParamOfTest.Type == "EnumParam" {
+				if !stringInSlice((*curCombination)[nameOfcurParamOfTest], curParamOfTest.Variants) {
+					curCombinationAccepted = false
+					break
+				}
+			}
+		}
+		if curCombinationAccepted{
+			for nameOfcurParamOfTest, _ := range t.params{
+				curCombinationCase = append(curCombinationCase, "-"+nameOfcurParamOfTest+"="+(*curCombination)[nameOfcurParamOfTest])
+			}
+			result = append(result,curCombinationCase)
+		}
+		//fmt.Println()
+	}
+	return result
 }

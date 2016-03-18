@@ -65,7 +65,7 @@ func (t *combinator) LoadElements(input map[string][]string) {
 }
 
 
-func getAllCombinations(input map[string][]string)[]*map[string]string{
+func getAllParamsCombinations(input map[string][]string)[]*map[string]string{
 	var result []*map[string]string
 
 	var combinator combinator
@@ -73,12 +73,6 @@ func getAllCombinations(input map[string][]string)[]*map[string]string{
 
 	for ; ;  {
 		curCombination, isEnd := combinator.Next()
-
-		//print current combination
-		//for curElementName, curElementValue := range curCombination{
-		//	fmt.Println(curElementName,"=",curElementValue)
-		//}
-
 		result = append(result, &curCombination)
 
 		if isEnd {

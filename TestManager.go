@@ -6,13 +6,16 @@ import (
 	"io/ioutil"
 	"log"
 	"regexp"
+	//"os"
+	"os"
 )
 
 // This is the base struct contain all required in all test fields
 type TestManager struct {
 	tests                map[string]*Test
 	parametersFromCLI    map[string]string
-	testMergedParameters TestParameter
+	testParametersFromCLI map[string]string
+	//testMergedParameters TestParameter
 }
 
 // check is a string presented in a slice
@@ -26,7 +29,7 @@ func stringInSlice(a string, list []string) bool {
 }
 
 // Parse all parameters from CLI. Fill default values if needed.
-func (t *TestManager) parseCLIParameters() {
+func (t *TestManager) parseAllCLIParameters() {
 	t.parametersFromCLI = CLIParser.ParseAllCLIFlags()
 	if _, ok := t.parametersFromCLI["name"]; !ok {
 		t.parametersFromCLI["name"] = ""
@@ -37,9 +40,20 @@ func (t *TestManager) parseCLIParameters() {
 	}
 }
 
+// Parse test parameters from CLI (except for action, name, tag).
+func (t *TestManager) parseTestCLIParameters() {
+	t.testParametersFromCLI = make(map[string]string)
+	for curParamName, curParamValue := range t.parametersFromCLI{
+		if curParamName!="name" && curParamName!="tag" {
+			t.testParametersFromCLI[curParamName] = curParamValue
+		}
+	}
+}
+
 // parse parameters from CLI, load parameters of each test, and filter tests by CLI parameters (name,tag)
 func (t *TestManager) Init(directory string, params map[string]string) error {
-	t.parseCLIParameters()
+	t.parseAllCLIParameters()
+	t.parseTestCLIParameters()
 	t.selectAllTests(directory)
 	t.filterTestsByName()
 	t.filterTestsByTag()
@@ -207,46 +221,82 @@ func (t *TestManager) PrintListOrderedByParameter() error {
 	return nil
 }
 
-// Print to STDOUT all cases are allowed for this parameters combination
-func (t *TestManager) PrintCases() error {
+
+// return all params with all variants for each
+func (t *TestManager) getAllTestParamsWithVariants()map[string][]string {
 	var allParameters map[string][]string
 	allParameters = make(map[string][]string)
-
 	// collect all params with all variants for each
 	for _, curTest := range t.tests {
 		for _, curParameter := range curTest.params {
-			if curParameter.Type == "EnumParam" {
-				allParameters[curParameter.Name] = []string{}
+			if curParameter.Type == "EnumParam" { // if parameter's type is enum - get single parameter from CLI
 				for _, curVariant := range curParameter.Variants {
 					if !stringInSlice(curVariant, allParameters[curParameter.Name]) {
 						allParameters[curParameter.Name] = append(allParameters[curParameter.Name], curVariant)
 					}
 				}
-			}else{
+			}else{   // if parameter's type is string - get single parameter from CLI
 				allParameters[curParameter.Name] = []string{t.parametersFromCLI[curParameter.Name]}
 			}
 		}
 	}
+	return  allParameters
+}
 
-	for curParameterName, curParameterVariants := range allParameters {
-		fmt.Println(curParameterName, curParameterVariants)
+func (t *TestManager) filterParametersCombinationsByGlobalParams(paramCombinations []*map[string]string)  []*map[string]string{
+	var result []*map[string]string
+	//fmt.Println(t.testParametersFromCLI)
+	//fmt.Println("")
+	for _, curCombine := range paramCombinations {
+		//fmt.Print(*curCombine)
+		combineAccepted := true;
+		for curParamName, curParamValue := range *curCombine{
+			if _, ok := t.testParametersFromCLI[curParamName]; ok { // if parameter found in CLI - check that it is accepted.
+				if !stringInSlice(curParamValue,CLIParser.GetAllVariantsOfFlagSeparatedBy(t.testParametersFromCLI[curParamName],",")){
+					combineAccepted = false
+					break
+				}
+			}
+		}
+		if combineAccepted {
+			//result= append(result,curCombine)
+			//fmt.Print(" accepted")
+			result = append(result, curCombine)
+		}
+		//fmt.Println()
+
 	}
+	//os.Exit(0)
+	return result
+}
 
-	allCases := getAllCombinations(allParameters)
+func (t *TestManager) getAllCases(ParamCombinations []*map[string]string) [][]string {
+	var result [][]string
+	for _, curTest := range t.tests{
+		casesOfCurTest := curTest.GetCasesByParameterCombinations(ParamCombinations)
+		//fmt.Println(casesOfCurTest)
+		result = append(result,casesOfCurTest...)
 
-	//print params...
-	for curCombineIndex, curCombine := range allCases{
-		fmt.Print(curCombineIndex," ")
-		for curParameterName, _ := range allParameters {
-			fmt.Print(curParameterName, "=", (*curCombine)[curParameterName]," ")
+		//os.Exit(0)
+		//result = append(result, curTest.GetCasesByParameterCombination(ParamCombinations))
+	}
+	return result
+}
+
+// Print to STDOUT all cases are allowed for this parameters combination
+func (t *TestManager) PrintCases() error {
+	allParameters:=t.getAllTestParamsWithVariants()
+	allParametersCombinations := getAllParamsCombinations(allParameters)
+	allParametersCombinations = t.filterParametersCombinationsByGlobalParams(allParametersCombinations)
+
+	allCases := t.getAllCases(allParametersCombinations)
+	for _, curCase := range allCases{
+		for _, curElement := range curCase{
+			fmt.Print(curElement," ")
 		}
 		fmt.Println()
 	}
-	//fmt.Println(curCombineIndex, (*curCombine)["Local"], (*curCombine)["platform"], (*curCombine)["planet"], (*curCombine)["lynxy"])
-	//fmt.Println(curCombineIndex, (*curCombine)["Locale"], (*curCombine)["Resolution"])
-	//fmt.Println(*curCombine)
-	//}
-	//println(allCases[0]*["resolution"])
 
+	os.Exit(0)
 	return nil
 }

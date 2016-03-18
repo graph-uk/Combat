@@ -61,3 +61,7 @@ func ParseAllCLIFlags() map[string]string {
 	}
 	return result
 }
+
+func GetAllVariantsOfFlagSeparatedBy(flag string, separator string)[]string{
+	return strings.Split(flag,separator)
+}
