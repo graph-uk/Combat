@@ -51,7 +51,7 @@ func (t *TestManager) parseTestCLIParameters() {
 }
 
 // parse parameters from CLI, load parameters of each test, and filter tests by CLI parameters (name,tag)
-func (t *TestManager) Init(directory string, params map[string]string) error {
+func (t *TestManager) Init(directory string) error {
 	t.parseAllCLIParameters()
 	t.parseTestCLIParameters()
 	t.selectAllTests(directory)
@@ -64,6 +64,7 @@ func (t *TestManager) Init(directory string, params map[string]string) error {
 func (t *TestManager) selectAllTests(directory string) error {
 	// clear test list
 	t.tests = make(map[string]*Test)
+
 
 	// read test's directory
 	testsFileList, err := ioutil.ReadDir(directory)
@@ -285,6 +286,8 @@ func (t *TestManager) getAllCases(ParamCombinations []*map[string]string) [][]st
 
 // Print to STDOUT all cases are allowed for this parameters combination
 func (t *TestManager) PrintCases() error {
+	//simpleTestReturnsTrue2
+	//fmt.Println(t.tests["simpleTestReturnsTrue2"].params["Locale"])
 	allParameters:=t.getAllTestParamsWithVariants()
 	allParametersCombinations := getAllParamsCombinations(allParameters)
 	allParametersCombinations = t.filterParametersCombinationsByGlobalParams(allParametersCombinations)
@@ -297,6 +300,16 @@ func (t *TestManager) PrintCases() error {
 		fmt.Println()
 	}
 
+	//print params...
+	//fmt.Println("")
+	//fmt.Println("")
+	//for curCombineIndex, curCombine := range allParametersCombinations {
+	//	fmt.Print(curCombineIndex," ")
+	//	for curParameterName, _ := range allParameters {
+	//		fmt.Print(curParameterName, "=", (*curCombine)[curParameterName]," ")
+	//	}
+	//	fmt.Println()
+	//}
 	os.Exit(0)
 	return nil
 }

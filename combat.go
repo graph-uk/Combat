@@ -308,7 +308,7 @@ func main() {
 
 	var testManager TestManager
 
-	testManager.Init("Tests_Examples/Tests", CLIParser.GetParams())
+	testManager.Init("Tests_Examples/Tests")
 
 	switch action {
 	case "list":
