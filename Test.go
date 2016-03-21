@@ -54,6 +54,37 @@ func (t *Test) LoadTagsAndParams() error {
 	return nil
 }
 
+
+func (t *Test) IsCasesEqual(case1 []string, case2 []string) bool{
+	if len(case1)!=len(case2){
+		return false
+	}
+
+	result := true
+	for _, curParameter := range case1{
+		parameterFound := false
+		for _, curParameter2 := range case2{
+			if curParameter == curParameter2{
+				parameterFound = true
+				break
+			}
+		}
+		if !parameterFound{
+			return false
+		}
+	}
+	return result
+}
+
+func (t *Test) IsCasePresented(allCases [][]string, aCase []string) bool{
+	for _, curCase := range allCases{
+		if t.IsCasesEqual(curCase,aCase){
+			return true
+		}
+	}
+	return false
+}
+
 func (t *Test) GetCasesByParameterCombinations(paramCombinations []*map[string]string) [][]string {
 	var result [][]string
 
@@ -75,7 +106,9 @@ func (t *Test) GetCasesByParameterCombinations(paramCombinations []*map[string]s
 			for nameOfcurParamOfTest, _ := range t.params{
 				curCombinationCase = append(curCombinationCase, "-"+nameOfcurParamOfTest+"="+(*curCombination)[nameOfcurParamOfTest])
 			}
-			result = append(result,curCombinationCase)
+			if !t.IsCasePresented(result,curCombinationCase){
+				result = append(result,curCombinationCase)
+			}
 		}
 		//fmt.Println()
 	}
