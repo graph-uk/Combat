@@ -286,6 +286,29 @@ func (t *TestManager) getAllCases(ParamCombinations []*map[string]string) [][]st
 
 // Print to STDOUT all cases are allowed for this parameters combination
 func (t *TestManager) PrintCases() error {
+		var allParamsRequiredToTesting map[string]string
+		allParamsRequiredToTesting = make(map[string]string)
+
+		for _, curTest := range t.tests {
+			for _, curParameter := range curTest.params {
+				if curParameter.Type == "StringParam" {
+					allParamsRequiredToTesting[curParameter.Name] = ""
+				}
+			}
+		}
+
+		allRequiredFlagsPresented := true
+		for curParameterKey, _ := range allParamsRequiredToTesting {
+			if _, ok := t.parametersFromCLI[curParameterKey]; !ok {
+				println("Flag \"" + curParameterKey + "\" is required.")
+				allRequiredFlagsPresented = false
+			}
+		}
+
+		if !allRequiredFlagsPresented {
+			os.Exit(1)
+		}
+
 	//simpleTestReturnsTrue2
 	//fmt.Println(t.tests["simpleTestReturnsTrue2"].params["Locale"])
 	allParameters:=t.getAllTestParamsWithVariants()

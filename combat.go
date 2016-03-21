@@ -293,9 +293,6 @@ import (
 //}
 
 func main() {
-
-
-
 	action := CLIParser.GetAction() //"run" action by default
 	if action == "" {
 		action = "run"
