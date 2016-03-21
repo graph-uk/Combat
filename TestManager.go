@@ -284,55 +284,55 @@ func (t *TestManager) getAllCases(ParamCombinations []*map[string]string) [][]st
 	return result
 }
 
-// Print to STDOUT all cases are allowed for this parameters combination
-func (t *TestManager) PrintCases() error {
-		var allParamsRequiredToTesting map[string]string
-		allParamsRequiredToTesting = make(map[string]string)
 
-		for _, curTest := range t.tests {
-			for _, curParameter := range curTest.params {
-				if curParameter.Type == "StringParam" {
-					allParamsRequiredToTesting[curParameter.Name] = ""
-				}
+func (t *TestManager) isRequiredParametersPresented() bool {
+	var allParamsRequiredToTesting map[string]string
+	allParamsRequiredToTesting = make(map[string]string)
+
+	for _, curTest := range t.tests {
+		for _, curParameter := range curTest.params {
+			if curParameter.Type == "StringParam" {
+				allParamsRequiredToTesting[curParameter.Name] = ""
 			}
 		}
+	}
 
-		allRequiredFlagsPresented := true
-		for curParameterKey, _ := range allParamsRequiredToTesting {
-			if _, ok := t.parametersFromCLI[curParameterKey]; !ok {
-				println("Flag \"" + curParameterKey + "\" is required.")
-				allRequiredFlagsPresented = false
-			}
+	allRequiredFlagsPresented := true
+	for curParameterKey, _ := range allParamsRequiredToTesting {
+		if _, ok := t.parametersFromCLI[curParameterKey]; !ok {
+			println("Flag \"" + curParameterKey + "\" is required.")
+			allRequiredFlagsPresented = false
 		}
+	}
 
-		if !allRequiredFlagsPresented {
-			os.Exit(1)
-		}
+	if !allRequiredFlagsPresented {
+		return false
+	}else{
+		return true
+	}
+}
 
-	//simpleTestReturnsTrue2
-	//fmt.Println(t.tests["simpleTestReturnsTrue2"].params["Locale"])
+
+// return array with cases are allowed for this parameters combination
+func (t *TestManager) AllCases() [][]string {
+	if !t.isRequiredParametersPresented() {
+		os.Exit(1)
+	}
 	allParameters:=t.getAllTestParamsWithVariants()
 	allParametersCombinations := getAllParamsCombinations(allParameters)
 	allParametersCombinations = t.filterParametersCombinationsByGlobalParams(allParametersCombinations)
 
-	allCases := t.getAllCases(allParametersCombinations)
+	return t.getAllCases(allParametersCombinations)
+}
+
+// Print to STDOUT all cases are allowed for this parameters combination
+func (t *TestManager) PrintCases() error {
+	allCases := t.AllCases()
 	for _, curCase := range allCases{
 		for _, curElement := range curCase{
 			fmt.Print(curElement," ")
 		}
 		fmt.Println()
 	}
-
-	//print params...
-	//fmt.Println("")
-	//fmt.Println("")
-	//for curCombineIndex, curCombine := range allParametersCombinations {
-	//	fmt.Print(curCombineIndex," ")
-	//	for curParameterName, _ := range allParameters {
-	//		fmt.Print(curParameterName, "=", (*curCombine)[curParameterName]," ")
-	//	}
-	//	fmt.Println()
-	//}
-	os.Exit(0)
 	return nil
 }
