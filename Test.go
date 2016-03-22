@@ -88,10 +88,7 @@ func (t *Test) IsCasePresented(allCases [][]string, aCase []string) bool{
 func (t *Test) GetCasesByParameterCombinations(paramCombinations []*map[string]string) [][]string {
 	var result [][]string
 
-	//fmt.Println(t.name)
-
 	for _, curCombination := range paramCombinations{
-		//fmt.Print(*curCombination)
 		curCombinationAccepted := true
 		curCombinationCase := []string{t.name}
 		for nameOfcurParamOfTest, curParamOfTest := range t.params{
@@ -110,7 +107,6 @@ func (t *Test) GetCasesByParameterCombinations(paramCombinations []*map[string]s
 				result = append(result,curCombinationCase)
 			}
 		}
-		//fmt.Println()
 	}
 	return result
 }

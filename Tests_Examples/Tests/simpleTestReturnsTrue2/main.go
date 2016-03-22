@@ -1,7 +1,7 @@
 package main
 
 import (
-	"TB2/Tests/Tests_shared/aTest"
+	"Combat/Tests_Examples/Tests_shared/aTest"
 	"log"
 	"os"
 )

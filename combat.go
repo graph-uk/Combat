@@ -32,35 +32,11 @@ func main() {
 		testManager.PrintCases()
 	case "run":
 		testManager.PrintCases()
-		SerialRunner.RunCasesSerial(testManager.AllCases(),"Tests_Examples/Tests")
+		totalFailed := SerialRunner.RunCasesSerial(testManager.AllCases(),"Tests_Examples/Tests")
+		os.Exit(totalFailed)
 	default:
 		println("Incorrect action. Please run \"Combat help\" for find available actions.")
 		os.Exit(1)
 	}
 	os.Exit(0)
-
-	//Парсим все значения параметров из CLI.
-
-	//Сначала фильтруем тесты по имени, потом по тегам.
-	//combat run -name="lynx" -tags="xnd"
-	//-name
-	//-tags
-	//-locale="sdf"
-	//-nyx="sdf"
-
-	//Потом собираем инфу о параметрах, которые нужно предоставить.
-	//Читаем параметры.
-	//Проверяем, что все необходимые параметры предоставлены. Если параметров предоставлено больше - ошибка.
-	//Проверяем, что перечисления вписываются в ограничения.
-	//Запускаем/выводим статистику.
-
-	//combat <...> run  запуск
-	//combat <...> list вывод тестов с параметрами и тегами, группировка по имени теста.
-	//combat <...> params вывод тестов с параметрами и тегами, группировка по параметрам.
-	//combat <...> tags вывод тестов с параметрами и тегами, группировка по тегам.
-	//combat help вывод справки.
-
-	//Print all tests with params
-
-	return
 }
