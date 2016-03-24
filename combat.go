@@ -2,6 +2,7 @@ package main
 
 import (
 	"Combat/CLIParser"
+	//"./CliParser"
 	"os"
 	"Combat/SerialRunner"
 )
@@ -19,7 +20,8 @@ func main() {
 
 	var testManager TestManager
 
-	testManager.Init("Tests_Examples/Tests")
+	curDirectory, _ := os.Getwd()
+	testManager.Init(curDirectory)
 
 	switch action {
 	case "list":
@@ -32,7 +34,7 @@ func main() {
 		testManager.PrintCases()
 	case "run":
 		testManager.PrintCases()
-		totalFailed := SerialRunner.RunCasesSerial(testManager.AllCases(),"Tests_Examples/Tests")
+		totalFailed := SerialRunner.RunCasesSerial(testManager.AllCases(), curDirectory)
 		os.Exit(totalFailed)
 	default:
 		println("Incorrect action. Please run \"Combat help\" for find available actions.")

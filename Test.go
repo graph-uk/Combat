@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 //	"fmt"
+	"fmt"
 )
 
 type Test struct {
@@ -32,8 +33,9 @@ func (t *Test) LoadTagsAndParams() error {
 
 	cmd := exec.Command("go", "run", t.directory+"/"+t.name+`/`+"main.go", "paramsJSON")
 	cmd.Env = os.Environ()
-	var out bytes.Buffer
+	var out,outErr bytes.Buffer
 	cmd.Stdout = &out
+	cmd.Stderr = &outErr
 	cmd.Run()
 	//	if err != nil {
 	//		log.Fatal(err)
@@ -43,6 +45,7 @@ func (t *Test) LoadTagsAndParams() error {
 	if err := json.Unmarshal(out.Bytes(), &TestParams); err != nil {
 		log.Println("Cannot parse json for test: " + t.name)
 		log.Println("JSON data: " + out.String())
+		fmt.Println(outErr.String())
 		panic(err)
 	}
 	t.tags = TestParams.Tags

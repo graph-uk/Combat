@@ -99,7 +99,7 @@ func (t *TestManager) selectAllTests(directory string) error {
 
 // Saves in t.tests the tests with a suitable name only
 func (t *TestManager) filterTestsByName() error {
-	name := t.parametersFromCLI["Name"]
+	name := t.parametersFromCLI["name"]
 	for curTestName, _ := range t.tests {
 		match, err := regexp.MatchString(name, curTestName)
 		if err != nil {
