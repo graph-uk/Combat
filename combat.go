@@ -5,6 +5,7 @@ import (
 	//"./CliParser"
 	"os"
 	"Combat/SerialRunner"
+	"Combat/Manual"
 )
 
 func main() {
@@ -14,7 +15,8 @@ func main() {
 	}
 
 	if action == "help" {
-		println("Help")
+		//println("Help")
+		Manual.PrintManual()
 		os.Exit(0)
 	}
 

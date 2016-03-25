@@ -1,4 +1,9 @@
-NAME
+package Manual
+
+import "fmt"
+
+func PrintManual() {
+	fmt.Println(`NAME
        Combat - list tests in current directory
 
 SYNOPSIS
@@ -41,7 +46,8 @@ OPTIONS
 
 PARAMETERS FOR TESTS
        There is parameters that will be provided to tests before run it.
-       You can find out information about parameters of your tests by running Combat with any list action (list, params, tags) "combat list".
+       You can find out information about parameters of your tests by running Combat with any list action (list,
+       params, tags) "combat list".
        All test parameter's names is a sequence of characters without spaces. Only letters and numbers are accepted.
        All test parameter's values is a sequence of characters without spaces. Special symbols and numbers are accepted.
        There is two types of test parameters:
@@ -51,11 +57,12 @@ PARAMETERS FOR TESTS
               Example: -hostname=http://ProjectUAT.com
 
        enumParam
-              String parameter that only accept values from the list. For example: Location(uk, us, fr, ru); Resolution(desktop, mobile)
-              It is not must to be defined to run test. 
-              If it is defined explicitly - test will be run with each of all provided values. 
+              String parameter that only accept values from the list. For example: Location(uk, us, fr,
+              ru); Resolution(desktop, mobile)
+              It is not must to be defined to run test.
+              If it is defined explicitly - test will be run with each of all provided values.
               If it is not defined - test will be run with each of all accepted values.
-              If the test has two or more enum parameters - test will be run with all combinations of parameters. 
+              If the test has two or more enum parameters - test will be run with all combinations of parameters.
               For example (uk;desktop uk;mobile ru;desktop ru;mobile etc...)
               You can find out cases by "Combat cases" command.
 
@@ -78,4 +85,5 @@ EXAMPLES (You are able run all following commands in "CombatSelfTesting" folder)
               Show all cases for tests selected by name and tag, with following locales (uk,us)
 
 REPORTING BUGS
-       Report combat behaviour bugs to <alexander.eliseev@graph.uk>
+       Report combat behaviour bugs to <alexander.eliseev@graph.uk>`)
+}
