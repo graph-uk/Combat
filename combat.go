@@ -2,7 +2,6 @@ package main
 
 import (
 	"Combat/CLIParser"
-	//"./CliParser"
 	"os"
 	"Combat/SerialRunner"
 	"Combat/Manual"
@@ -15,7 +14,6 @@ func main() {
 	}
 
 	if action == "help" {
-		//println("Help")
 		Manual.PrintManual()
 		os.Exit(0)
 	}

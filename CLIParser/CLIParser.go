@@ -33,7 +33,16 @@ func GetCLIFlagValueByName(CLIFlags []CLIFlag, name string) string {
 //-------------------------------------------------------------------------------
 func GetAction() string {
 	if len(os.Args) > 1 {
-		return os.Args[1]
+		action := ""
+		for curArgIndex, curArg := range os.Args{
+			if curArgIndex>0{
+				if curArg[0] != '-'{
+					action=curArg
+					break
+				}
+			}
+		}
+		return action
 	} else {
 		return "" // return empty string if command not found
 	}
