@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 	"os/exec"
-//	"fmt"
 	"fmt"
+	"Combat/arrayUtils"
 )
 
 type Test struct {
@@ -58,7 +58,7 @@ func (t *Test) LoadTagsAndParams() error {
 }
 
 
-func (t *Test) IsCasesEqual(case1 []string, case2 []string) bool{
+func (t *Test) isCasesEqual(case1 []string, case2 []string) bool{
 	if len(case1)!=len(case2){
 		return false
 	}
@@ -79,9 +79,9 @@ func (t *Test) IsCasesEqual(case1 []string, case2 []string) bool{
 	return result
 }
 
-func (t *Test) IsCasePresented(allCases [][]string, aCase []string) bool{
+func (t *Test) isCasePresented(allCases [][]string, aCase []string) bool{
 	for _, curCase := range allCases{
-		if t.IsCasesEqual(curCase,aCase){
+		if t.isCasesEqual(curCase,aCase){
 			return true
 		}
 	}
@@ -96,7 +96,7 @@ func (t *Test) GetCasesByParameterCombinations(paramCombinations []*map[string]s
 		curCombinationCase := []string{t.name}
 		for nameOfcurParamOfTest, curParamOfTest := range t.params{
 			if curParamOfTest.Type == "EnumParam" {
-				if !stringInSlice((*curCombination)[nameOfcurParamOfTest], curParamOfTest.Variants) {
+				if !arrayUtils.StringInSlice((*curCombination)[nameOfcurParamOfTest], curParamOfTest.Variants) {
 					curCombinationAccepted = false
 					break
 				}
@@ -106,7 +106,7 @@ func (t *Test) GetCasesByParameterCombinations(paramCombinations []*map[string]s
 			for nameOfcurParamOfTest, _ := range t.params{
 				curCombinationCase = append(curCombinationCase, "-"+nameOfcurParamOfTest+"="+(*curCombination)[nameOfcurParamOfTest])
 			}
-			if !t.IsCasePresented(result,curCombinationCase){
+			if !t.isCasePresented(result,curCombinationCase){
 				result = append(result,curCombinationCase)
 			}
 		}

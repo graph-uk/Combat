@@ -8,6 +8,7 @@ import (
 	"regexp"
 	//"os"
 	"os"
+	"Combat/arrayUtils"
 )
 
 // This is the base struct contain all required in all test fields
@@ -18,15 +19,7 @@ type TestManager struct {
 	//testMergedParameters TestParameter
 }
 
-// check is a string presented in a slice
-func stringInSlice(a string, list []string) bool {
-	for _, b := range list {
-		if b == a {
-			return true
-		}
-	}
-	return false
-}
+
 
 // Parse all parameters from CLI. Fill default values if needed.
 func (t *TestManager) parseAllCLIParameters() {
@@ -187,7 +180,7 @@ func (t *TestManager) PrintListOrderedByParameter() error {
 			allParametersTests[curParameter.Name] = append(allParametersTests[curParameter.Name], curTest.name)
 			if curParameter.Type == "EnumParam" {
 				for _, curVariant := range curParameter.Variants {
-					if !stringInSlice(curVariant, allParametersVariants[curParameter.Name]) {
+					if !arrayUtils.StringInSlice(curVariant, allParametersVariants[curParameter.Name]) {
 						allParametersVariants[curParameter.Name] = append(allParametersVariants[curParameter.Name], curVariant)
 					}
 				}
@@ -232,7 +225,7 @@ func (t *TestManager) getAllTestParamsWithVariants()map[string][]string {
 		for _, curParameter := range curTest.params {
 			if curParameter.Type == "EnumParam" { // if parameter's type is enum - get single parameter from CLI
 				for _, curVariant := range curParameter.Variants {
-					if !stringInSlice(curVariant, allParameters[curParameter.Name]) {
+					if !arrayUtils.StringInSlice(curVariant, allParameters[curParameter.Name]) {
 						allParameters[curParameter.Name] = append(allParameters[curParameter.Name], curVariant)
 					}
 				}
@@ -253,7 +246,7 @@ func (t *TestManager) filterParametersCombinationsByGlobalParams(paramCombinatio
 		combineAccepted := true;
 		for curParamName, curParamValue := range *curCombine{
 			if _, ok := t.testParametersFromCLI[curParamName]; ok { // if parameter found in CLI - check that it is accepted.
-				if !stringInSlice(curParamValue,CLIParser.GetAllVariantsOfFlagSeparatedBy(t.testParametersFromCLI[curParamName],",")){
+				if !arrayUtils.StringInSlice(curParamValue,CLIParser.GetAllVariantsOfFlagSeparatedBy(t.testParametersFromCLI[curParamName],",")){
 					combineAccepted = false
 					break
 				}
