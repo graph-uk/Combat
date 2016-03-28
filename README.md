@@ -28,3 +28,7 @@ SessionTimestamp     StringParam
 Locale               EnumParam           EN RU US
 ```
 Now you are able add your own test directory to GOPATH, and write your own tests.
+
+Get addition information
+=====
+Run `Combat help`
