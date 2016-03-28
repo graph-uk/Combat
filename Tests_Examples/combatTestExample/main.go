@@ -1,8 +1,10 @@
 package main
 
 import (
-	"TB2/Tests/Tests_shared/aTest"
+	"combat/Tests_Examples/Tests/Tests_shared/aTest"
+	"combat/Tests_Examples/Tests/Tests_shared/aas"
 	"log"
+	"os"
 )
 
 type theTest struct {
@@ -13,6 +15,7 @@ type theTest struct {
 		Locale           aTest.EnumParam
 		AdminName        aTest.StringParam
 	}
+	aas aas.AAS
 }
 
 func createNewTest() (*theTest, error) {
@@ -24,15 +27,23 @@ func createNewTest() (*theTest, error) {
 	result.aTest.Tags = append(result.aTest.Tags, "NotForLive")
 
 	result.aTest.FillParamsFromCLI(&result.params)
+	result.aas.Init(result.params.HostName.Value)
+	//	result.aas.Browser.RestartIfDied()
+	//	result.aas.Pages.MainPage.Open()
+	//	os.Exit(0)
 	return &result, nil
 }
 
 func main() {
-	_, err := createNewTest()
+	fillLineTest, err := createNewTest()
 	if err != nil {
 		panic(err)
 	}
 
+	fillLineTest.aas.Browser.RestartIfDied()
+	fillLineTest.aas.Pages.MainPage.Open()
+	fillLineTest.aas.Pages.MainPage.Header_ClickSignUp()
+	fillLineTest.aas.Pages.SignUpPage.FillFirstName(fillLineTest.params.AdminName.Value)
 	log.Println("ok")
-	return
+	os.Exit(0)
 }

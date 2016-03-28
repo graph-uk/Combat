@@ -82,10 +82,10 @@ func (a *ATest) FillParamsFromCLI2(params interface{}) error {
 			if ParamValueAccepted {
 				s.Elem().Field(curFieldIndex).FieldByName("Value").Set(reflect.ValueOf(*flagMap[s.Elem().Type().Field(curFieldIndex).Name]))
 			} else {
-				println("Incorrect value " + *flagMap[s.Elem().Type().Field(curFieldIndex).Name] + " for parameter " + s.Elem().Type().Field(curFieldIndex).Name)
-				println("The parameter accept the only following values:")
+				fmt.Println("Incorrect value " + *flagMap[s.Elem().Type().Field(curFieldIndex).Name] + " for parameter " + s.Elem().Type().Field(curFieldIndex).Name)
+				fmt.Println("The parameter accept the only following values:")
 				for i := 0; i < AcceptedValues.Len(); i++ {
-					println(AcceptedValues.Index(i).String())
+					fmt.Println(AcceptedValues.Index(i).String())
 				}
 				os.Exit(1)
 			}
@@ -93,8 +93,8 @@ func (a *ATest) FillParamsFromCLI2(params interface{}) error {
 	}
 
 	// Print params table
-	println("Starting tests with parameters:")
-	println()
+	fmt.Println("Starting tests with parameters:")
+	fmt.Println()
 	for curFieldIndex := 0; curFieldIndex < s.Elem().NumField(); curFieldIndex++ {
 		fmt.Printf("%-20s \"%s\"\n", s.Elem().Type().Field(curFieldIndex).Name, *flagMap[s.Elem().Type().Field(curFieldIndex).Name])
 	}
