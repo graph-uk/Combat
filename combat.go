@@ -1,10 +1,11 @@
 package main
 
 import (
-	"Combat/CLIParser"
 	"os"
-	"Combat/SerialRunner"
-	"Combat/Manual"
+
+	"github.com/graph-uk/Combat/CLIParser"
+	"github.com/graph-uk/Combat/Manual"
+	"github.com/graph-uk/Combat/SerialRunner"
 )
 
 func main() {
