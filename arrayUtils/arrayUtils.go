@@ -9,3 +9,11 @@ func StringInSlice(a string, list []string) bool {
 	}
 	return false
 }
+
+func ConcatStringSlice(slice []string) string {
+	result := ""
+	for _, curElement := range slice {
+		result += curElement
+	}
+	return result
+}

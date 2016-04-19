@@ -36,6 +36,7 @@ func main() {
 	case "run":
 		testManager.PrintCases()
 		totalFailed := SerialRunner.RunCasesSerial(testManager.AllCases(), curDirectory)
+		os.Chdir(curDirectory)
 		os.Exit(totalFailed)
 	default:
 		println("Incorrect action. Please run \"Combat help\" for find available actions.")
