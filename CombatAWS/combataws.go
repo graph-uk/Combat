@@ -16,7 +16,7 @@ func packTests() string {
 	tmpFile.Close()
 	fmt.Println(tmpFile.Name())
 	tmpFile.Close()
-	zipit("./", tmpFile.Name())
+	zipit("./..", tmpFile.Name())
 	return tmpFile.Name()
 }
 
@@ -40,7 +40,7 @@ func createSessionOnServer(archiveFileName string) (string, error) {
 
 	var err error
 	for i := 1; i <= 10; i++ {
-		sessionName, err = postFile(archiveFileName, "http://localhost:9090/createSession")
+		sessionName, err = postSession(archiveFileName, getParams(), "http://localhost:9090/createSession")
 		if err != nil {
 			time.Sleep(5 * time.Second)
 			fmt.Println(err.Error())

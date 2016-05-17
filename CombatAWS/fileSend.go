@@ -12,7 +12,7 @@ import (
 	"strconv"
 )
 
-func postFile(filename string, targetUrl string) (string, error) {
+func postSession(filename string, params string, targetUrl string) (string, error) {
 
 	bodyBuf := &bytes.Buffer{}
 	bodyWriter := multipart.NewWriter(bodyBuf)
@@ -36,7 +36,7 @@ func postFile(filename string, targetUrl string) (string, error) {
 		return "", err
 	}
 	contentType := bodyWriter.FormDataContentType()
-	//bodyWriter.WriteField("SessionName", sessionName)
+	bodyWriter.WriteField("params", params)
 
 	bodyWriter.Close()
 

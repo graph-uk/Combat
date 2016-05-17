@@ -9,6 +9,9 @@ import (
 )
 
 func zipit(source, target string) error {
+	os.Chdir(source)
+	source = "."
+
 	zipfile, err := os.Create(target)
 	if err != nil {
 		return err
