@@ -17,8 +17,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func uploadSessionHandler(w http.ResponseWriter, r *http.Request) {
-	//fmt.Println("method:", r.Method)
+func createSessionHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		crutime := time.Now().Unix()
 		h := md5.New()
@@ -28,6 +27,7 @@ func uploadSessionHandler(w http.ResponseWriter, r *http.Request) {
 		t, _ := template.ParseFiles("upload.gtpl")
 		t.Execute(w, token)
 	} else {
+		sessionName := strconv.FormatInt(time.Now().UnixNano(), 10)
 		r.ParseMultipartForm(32 << 20)
 		file, handler, err := r.FormFile("uploadfile")
 		if err != nil {
@@ -35,13 +35,7 @@ func uploadSessionHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		defer file.Close()
-		//fmt.Fprintf(w, "%v", handler.Header)
 
-		sessionName := r.FormValue("SessionName")
-		if sessionName == "" {
-			fmt.Println("cannot extract session name")
-			return
-		}
 		os.MkdirAll("./sessions/"+sessionName, 0777)
 		f, err := os.OpenFile("./sessions/"+sessionName+"/"+filepath.Base(handler.Filename), os.O_WRONLY|os.O_CREATE, 0666)
 		if err != nil {
@@ -57,10 +51,11 @@ func uploadSessionHandler(w http.ResponseWriter, r *http.Request) {
 
 		req, err := db.Prepare("INSERT INTO Sessions(id,filename) VALUES(?,?)")
 		check(err)
-		_, err = req.Exec(sessionName, "astaxie")
+		_, err = req.Exec(sessionName, filepath.Base(handler.Filename))
 		check(err)
 
-		fmt.Println(r.Host + " Create new session: " + r.FormValue("SessionName"))
+		io.WriteString(w, sessionName)
+		fmt.Println(r.Host + " Create new session: " + sessionName)
 	}
 
 }

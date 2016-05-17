@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"strconv"
 	"time"
 )
 
@@ -35,12 +34,13 @@ func getParams() string {
 	return params
 }
 
-func createSessionOnServer(sessionName string, archiveFileName string) {
+func createSessionOnServer(archiveFileName string) (string, error) {
 	fmt.Println("Uploading session...")
+	sessionName := ""
 
 	var err error
 	for i := 1; i <= 10; i++ {
-		err = postFile(archiveFileName, sessionName, "http://localhost:9090/uploadSession")
+		sessionName, err = postFile(archiveFileName, "http://localhost:9090/createSession")
 		if err != nil {
 			time.Sleep(5 * time.Second)
 			fmt.Println(err.Error())
@@ -51,13 +51,12 @@ func createSessionOnServer(sessionName string, archiveFileName string) {
 	if err != nil {
 		fmt.Println("Cannot upload file. Check is server available.")
 	}
+	return sessionName, err
 }
 
 func main() {
-	timestamp := strconv.FormatInt(time.Now().UnixNano(), 10)
-	fmt.Println("Session: " + timestamp)
-	fmt.Println(getParams())
 	cleanupTests()
 	testsArchiveFileName := packTests()
-	createSessionOnServer(timestamp, testsArchiveFileName)
+	sessionName, _ := createSessionOnServer(testsArchiveFileName)
+	fmt.Println("Session: " + sessionName)
 }

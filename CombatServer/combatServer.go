@@ -13,7 +13,6 @@ func check(err error) {
 //var db *sql.DB
 
 func main() {
-
-	http.HandleFunc("/uploadSession", uploadSessionHandler)
+	http.HandleFunc("/createSession", createSessionHandler)
 	http.ListenAndServe(":9090", nil)
 }

@@ -2,15 +2,17 @@ package main
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
 	"net/http"
 	"os"
+	"strconv"
 )
 
-func postFile(filename string, sessionName string, targetUrl string) error {
+func postFile(filename string, targetUrl string) (string, error) {
 
 	bodyBuf := &bytes.Buffer{}
 	bodyWriter := multipart.NewWriter(bodyBuf)
@@ -18,36 +20,39 @@ func postFile(filename string, sessionName string, targetUrl string) error {
 	fileWriter, err := bodyWriter.CreateFormFile("uploadfile", filename)
 	if err != nil {
 		fmt.Println("error writing to buffer")
-		return err
+		return "", err
 	}
 
 	// open file handle
 	fh, err := os.Open(filename)
 	if err != nil {
 		fmt.Println("error opening file")
-		return err
+		return "", err
 	}
 
 	//iocopy
 	_, err = io.Copy(fileWriter, fh)
 	if err != nil {
-		return err
+		return "", err
 	}
 	contentType := bodyWriter.FormDataContentType()
-	bodyWriter.WriteField("SessionName", sessionName)
+	//bodyWriter.WriteField("SessionName", sessionName)
 
 	bodyWriter.Close()
 
 	resp, err := http.Post(targetUrl, contentType, bodyBuf)
 	if err != nil {
-		return err
+		return "", err
 	}
 	defer resp.Body.Close()
 	resp_body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return err
+		return "", err
 	}
-	fmt.Println(resp.Status)
-	fmt.Println(string(resp_body))
-	return nil
+	//fmt.Println(resp.Status)
+	//fmt.Println(string(resp_body))
+	if resp.StatusCode != 200 {
+		return "", errors.New("Incorrect request status: " + strconv.Itoa(resp.StatusCode))
+	}
+	return string(resp_body), nil
 }
