@@ -8,7 +8,6 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"path/filepath"
 	"strconv"
 	"time"
 
@@ -29,7 +28,7 @@ func createSessionHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		sessionName := strconv.FormatInt(time.Now().UnixNano(), 10)
 		r.ParseMultipartForm(32 << 20)
-		file, handler, err := r.FormFile("uploadfile")
+		file, _, err := r.FormFile("uploadfile")
 		if err != nil {
 			fmt.Println(err)
 			return
@@ -37,7 +36,7 @@ func createSessionHandler(w http.ResponseWriter, r *http.Request) {
 		defer file.Close()
 
 		os.MkdirAll("./sessions/"+sessionName, 0777)
-		f, err := os.OpenFile("./sessions/"+sessionName+"/"+filepath.Base(handler.Filename), os.O_WRONLY|os.O_CREATE, 0666)
+		f, err := os.OpenFile("./sessions/"+sessionName+"/archived.zip", os.O_WRONLY|os.O_CREATE, 0666)
 		if err != nil {
 			fmt.Println(err)
 			return
@@ -49,9 +48,9 @@ func createSessionHandler(w http.ResponseWriter, r *http.Request) {
 		check(err)
 		defer db.Close()
 
-		req, err := db.Prepare("INSERT INTO Sessions(id,filename) VALUES(?,?)")
+		req, err := db.Prepare("INSERT INTO Sessions(id) VALUES(?)")
 		check(err)
-		_, err = req.Exec(sessionName, filepath.Base(handler.Filename))
+		_, err = req.Exec(sessionName)
 		check(err)
 
 		io.WriteString(w, sessionName)
