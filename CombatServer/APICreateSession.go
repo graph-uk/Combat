@@ -15,13 +15,7 @@ import (
 
 func createSessionHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		//		crutime := time.Now().Unix()
-		//		h := md5.New()
-		//		io.WriteString(h, strconv.FormatInt(crutime, 10))
-		//		token := fmt.Sprintf("%x", h.Sum(nil))
 
-		//		t, _ := template.ParseFiles("upload.gtpl")
-		//		t.Execute(w, token)
 	} else {
 		sessionName := strconv.FormatInt(time.Now().UnixNano(), 10)
 		r.ParseMultipartForm(32 << 20)

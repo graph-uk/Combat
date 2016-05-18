@@ -14,8 +14,8 @@ func packTests() string {
 		panic(err)
 	}
 	tmpFile.Close()
-	fmt.Println(tmpFile.Name())
-	tmpFile.Close()
+	//	fmt.Println(tmpFile.Name())
+	//	tmpFile.Close()
 	zipit("./..", tmpFile.Name())
 	return tmpFile.Name()
 }

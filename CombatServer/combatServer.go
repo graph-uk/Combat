@@ -15,5 +15,7 @@ func check(err error) {
 func main() {
 	http.HandleFunc("/createSession", createSessionHandler)
 	http.HandleFunc("/getJob", getJobHandler)
+	http.HandleFunc("/setSessionCases", setSessionCasesHandler)
+	http.HandleFunc("/setCaseResult", setCaseResultHandler)
 	http.ListenAndServe(":9090", nil)
 }
