@@ -30,4 +30,6 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 /.idea/
 CombatServer/sessions
+CombatServer/tries
 CombatNode/job
+

@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	//"io"
+	"io"
 	"net/http"
-	//	"os"
+	"os"
 	"strconv"
 	//	"time"
 
@@ -74,15 +74,6 @@ func setCaseResultHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		//		os.MkdirAll("./tries/"+sessionName, 0777)
-		//		f, err := os.OpenFile("./sessions/"+sessionName+"/archived.zip", os.O_WRONLY|os.O_CREATE, 0666)
-		//		if err != nil {
-		//			fmt.Println(err)
-		//			return
-		//		}
-		//		defer f.Close()
-		//		io.Copy(f, file)
-
 		db, err := sql.Open("sqlite3", "./base.sl3")
 		check(err)
 		defer db.Close()
@@ -95,7 +86,6 @@ func setCaseResultHandler(w http.ResponseWriter, r *http.Request) {
 		triesCount := 0
 		for rows.Next() {
 			triesCount++
-			//err = rows.Scan(&uid, &username, &department, &created)
 		}
 		rows.Close()
 
@@ -103,12 +93,14 @@ func setCaseResultHandler(w http.ResponseWriter, r *http.Request) {
 
 		req, err = db.Prepare("INSERT INTO Tries(caseID,exitStatus,stdOut) VALUES(?,?,?)")
 		check(err)
-		_, err = req.Exec(caseID, exitStatus, stdOut)
+		res, err := req.Exec(caseID, exitStatus, stdOut)
 		check(err)
+		tryID64, err := res.LastInsertId()
+		check(err)
+		tryID := strconv.Itoa(int(tryID64))
+		//fmt.Println(strconv.Itoa(int(tryID)))
 
 		db.Close()
-		//fmt.Println(caseID)
-		//markCaseFailed(caseID)
 		if triesCount > 2 && exitStatus != "0" {
 			markCaseFailed(caseID)
 		} else {
@@ -118,8 +110,16 @@ func setCaseResultHandler(w http.ResponseWriter, r *http.Request) {
 				markCaseNotInProgress(caseID)
 			}
 		}
-		//		io.WriteString(w, sessionName)
+
+		os.MkdirAll("./tries/"+tryID, 0777)
+		f, err := os.OpenFile("./tries/"+tryID+"/out_archived.zip", os.O_WRONLY|os.O_CREATE, 0666)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer f.Close()
+		io.Copy(f, file)
+
 		fmt.Println(r.Host + " ran case: " + caseID)
 	}
-
 }
