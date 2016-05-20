@@ -2,6 +2,7 @@ package main
 
 import (
 	"Tests_shared/aTest"
+	"io/ioutil"
 	"log"
 )
 
@@ -24,6 +25,7 @@ func createNewTest() (*theTest, error) {
 	result.aTest.Tags = append(result.aTest.Tags, "NotForLive")
 
 	result.aTest.FillParamsFromCLI(&result.params)
+	result.aTest.CreateOutputFolder()
 	return &result, nil
 }
 
@@ -31,6 +33,11 @@ func main() {
 	_, err := createNewTest()
 	if err != nil {
 		panic(err)
+	}
+
+	err = ioutil.WriteFile("./out/log.txt", []byte("Ok"), 0777)
+	if err != nil {
+		println(err.Error())
 	}
 
 	log.Println("ok")

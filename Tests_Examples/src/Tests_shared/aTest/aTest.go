@@ -138,3 +138,13 @@ func (a *ATest) PrintTagsInPlaintext() {
 		fmt.Print(curTag + " ")
 	}
 }
+
+func (a *ATest) CreateOutputFolder() {
+	if _, err := os.Stat("out"); err != nil {
+		err := os.Mkdir("out", 0777)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+}

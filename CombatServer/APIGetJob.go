@@ -45,7 +45,7 @@ func getJobHandler(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(r.Host + " Get a job (CasesExplore) for session: " + sessionId)
 		} else { // when no one session needed to explore cases, check are we have cases to run
 			var caseID, caseCMD, sessionID string
-			rows, err := db.Query(`SELECT id, cmdLine, sessionID FROM Cases WHERE finished="false" AND inProgress="false" limit 1`)
+			rows, err := db.Query(`SELECT id, cmdLine, sessionID FROM cases WHERE finished="false" AND inProgress="false" ORDER BY RANDOM() LIMIT 1`)
 			check(err)
 			if rows.Next() {
 				err = rows.Scan(&caseID, &caseCMD, &sessionID)

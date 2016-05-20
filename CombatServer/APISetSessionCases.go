@@ -55,5 +55,4 @@ func setSessionCasesHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(r.Host + " Provided " + strconv.Itoa(casesCount) + " cases for session: " + sessionID)
 
 	}
-
 }

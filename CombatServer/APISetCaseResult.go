@@ -120,6 +120,6 @@ func setCaseResultHandler(w http.ResponseWriter, r *http.Request) {
 		defer f.Close()
 		io.Copy(f, file)
 
-		fmt.Println(r.Host + " ran case: " + caseID)
+		fmt.Println(r.Host + " Provide result for case: " + caseID + ". Status=" + exitStatus)
 	}
 }

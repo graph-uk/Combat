@@ -17,5 +17,6 @@ func main() {
 	http.HandleFunc("/getJob", getJobHandler)
 	http.HandleFunc("/setSessionCases", setSessionCasesHandler)
 	http.HandleFunc("/setCaseResult", setCaseResultHandler)
+	http.HandleFunc("/getSessionStatus", getSessionStatusHandler)
 	http.ListenAndServe(":9090", nil)
 }

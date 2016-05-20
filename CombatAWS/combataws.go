@@ -59,4 +59,14 @@ func main() {
 	testsArchiveFileName := packTests()
 	sessionName, _ := createSessionOnServer(testsArchiveFileName)
 	fmt.Println("Session: " + sessionName)
+	for {
+		finished, _, err := getSessionStatusJSON(sessionName)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		if finished {
+			break
+		}
+		time.Sleep(5 * time.Second)
+	}
 }
