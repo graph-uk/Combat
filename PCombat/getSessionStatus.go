@@ -4,11 +4,9 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	//"io"
 	"io/ioutil"
 	"mime/multipart"
 	"net/http"
-	//"os"
 	"strconv"
 )
 

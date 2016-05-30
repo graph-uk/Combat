@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"fmt"
@@ -6,13 +6,10 @@ import (
 	//"io/ioutil"
 	"net/http"
 	//"time"
-	"database/sql"
 	"strconv"
-
-	_ "github.com/mattn/go-sqlite3"
 )
 
-func getSessionStatusHandler(w http.ResponseWriter, r *http.Request) {
+func (t *CombatServer) getSessionStatusHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		//sessionID := r.Header.Get("sessionID")
 		r.ParseMultipartForm(32 << 20)
@@ -22,54 +19,84 @@ func getSessionStatusHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		db, err := sql.Open("sqlite3", "./base.sl3")
-		check(err)
-		defer db.Close()
-		req, err := db.Prepare(`SELECT Count()as count FROM Cases WHERE sessionID=?`)
-		check(err)
+		req, err := t.mdb.DB.Prepare(`SELECT Count()as count FROM Cases WHERE sessionID=?`)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 		rows, err := req.Query(sessionID)
-		check(err)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 		var totalCasesCount int
 		rows.Next()
 		err = rows.Scan(&totalCasesCount)
-		check(err)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 		rows.Close()
 
-		req, err = db.Prepare(`SELECT Count()as count FROM Cases WHERE sessionID=? AND finished="true"`)
-		check(err)
+		req, err = t.mdb.DB.Prepare(`SELECT Count()as count FROM Cases WHERE sessionID=? AND finished="true"`)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 		rows, err = req.Query(sessionID)
-		check(err)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 		var finishedCasesCount int
 		rows.Next()
 		err = rows.Scan(&finishedCasesCount)
-		check(err)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 		rows.Close()
 
-		req, err = db.Prepare(`SELECT Count()as count FROM Cases WHERE sessionID=? AND finished="true" AND passed="false"`)
-		check(err)
+		req, err = t.mdb.DB.Prepare(`SELECT Count()as count FROM Cases WHERE sessionID=? AND finished="true" AND passed="false"`)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 		rows, err = req.Query(sessionID)
-		check(err)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 		var failedCasesCount int
 		rows.Next()
 		err = rows.Scan(&failedCasesCount)
-		check(err)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 		rows.Close()
 
-		req, err = db.Prepare(`SELECT cmdLine FROM Cases WHERE sessionID=? AND finished="true" AND passed="false"`)
-		check(err)
+		req, err = t.mdb.DB.Prepare(`SELECT cmdLine FROM Cases WHERE sessionID=? AND finished="true" AND passed="false"`)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 		rows, err = req.Query(sessionID)
-		check(err)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 		var errorCases []string
 		for rows.Next() {
 			var cmdLine string
 			err = rows.Scan(&cmdLine)
-			check(err)
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
 			errorCases = append(errorCases, cmdLine)
 		}
 		rows.Close()
-		//rows.Next()
-		//err = rows.Scan(&failedCasesCount)
-		//check(err)
 
 		if totalCasesCount == finishedCasesCount && totalCasesCount != 0 {
 			w.Header().Set("Finished", "True")

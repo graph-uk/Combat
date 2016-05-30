@@ -60,7 +60,7 @@ func postCases(cases string, sessionID string) error {
 	contentType := bodyWriter.FormDataContentType()
 	bodyWriter.Close()
 
-	resp, err := http.Post("http://localhost:9090/setSessionCases", contentType, bodyBuf)
+	resp, err := http.Post("http://deltaview.ru:9090/setSessionCases", contentType, bodyBuf)
 	if err != nil {
 		return err
 	}
@@ -185,7 +185,7 @@ func postCaseResult(caseID, exitStatus, stdout string) error {
 	bodyWriter.WriteField("stdOut", stdout)
 	bodyWriter.Close()
 
-	resp, err := http.Post("http://localhost:9090"+"/setCaseResult", contentType, bodyBuf)
+	resp, err := http.Post("http://deltaview.ru:9090"+"/setCaseResult", contentType, bodyBuf)
 	if err != nil {
 		return err
 	}
@@ -216,7 +216,7 @@ func main() {
 		os.Chdir(myPath)
 		cleanupJob()
 		fmt.Println(".")
-		command, params, sessionID := getJob("http://localhost:9090")
+		command, params, sessionID := getJob("http://deltaview.ru:9090")
 		if command == "CasesExplore" {
 			doCasesExplore(params, sessionID)
 		}

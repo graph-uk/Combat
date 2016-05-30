@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"fmt"
@@ -7,14 +7,11 @@ import (
 	//"os"
 	"strconv"
 	"strings"
+
 	//"time"
-
-	"database/sql"
-
-	_ "github.com/mattn/go-sqlite3"
 )
 
-func setSessionCasesHandler(w http.ResponseWriter, r *http.Request) {
+func (t *CombatServer) setSessionCasesHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 
 	} else {
@@ -34,12 +31,11 @@ func setSessionCasesHandler(w http.ResponseWriter, r *http.Request) {
 
 		sessionCasesArr := strings.Split(sessionCases, "\n")
 
-		db, err := sql.Open("sqlite3", "./base.sl3")
-		check(err)
-		defer db.Close()
-
-		req, err := db.Prepare("INSERT INTO Cases(cmdline, sessionID) VALUES(?,?)")
-		check(err)
+		req, err := t.mdb.DB.Prepare("INSERT INTO Cases(cmdline, sessionID) VALUES(?,?)")
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 
 		casesCount := 0
 		for _, curCase := range sessionCasesArr {
@@ -47,11 +43,13 @@ func setSessionCasesHandler(w http.ResponseWriter, r *http.Request) {
 			if curCaseCleared != "" {
 				casesCount++
 				_, err = req.Exec(curCase, sessionID)
-				check(err)
+				if err != nil {
+					fmt.Println(err)
+					return
+				}
 			}
 		}
 
-		//fmt.Println(r.Host + " Create new session: " + sessionName + " " + sessionParams)
 		fmt.Println(r.Host + " Provided " + strconv.Itoa(casesCount) + " cases for session: " + sessionID)
 
 	}
