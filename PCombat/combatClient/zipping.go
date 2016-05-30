@@ -1,4 +1,4 @@
-package main
+package combatClient
 
 import (
 	"archive/zip"
