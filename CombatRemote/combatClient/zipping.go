@@ -1,4 +1,4 @@
-package combatWorker
+package combatClient
 
 import (
 	"archive/zip"
@@ -50,7 +50,7 @@ func unzip(src, dest string) error {
 	return nil
 }
 
-func zipit(source, target string) error {
+func Zipit(source, target string) error {
 	zipfile, err := os.Create(target)
 	if err != nil {
 		return err

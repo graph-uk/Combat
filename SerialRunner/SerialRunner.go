@@ -16,6 +16,17 @@ type testCase struct {
 	isSucceed  bool
 }
 
+func addToGOPath(pathExtention string) []string {
+	result := os.Environ()
+	for curVarIndex, curVarValue := range result {
+		if strings.HasPrefix(curVarValue, "GOPATH=") {
+			result[curVarIndex] = result[curVarIndex] + string(os.PathListSeparator) + pathExtention
+			return result
+		}
+	}
+	return result
+}
+
 func addLeftTab(str string) string {
 	result := ""
 	strArray := strings.Split(str, "\n")
@@ -67,8 +78,12 @@ func RunCasesSerial(cases [][]string, directory string) int {
 				hasAnyTries = true
 				testCases[curCaseIndex].triesCount++
 				os.Chdir(directory + string(os.PathSeparator) + curCase.TestName)
+
+				rootTestsPath, _ := os.Getwd()
+				rootTestsPath += string(os.PathSeparator) + ".." + string(os.PathSeparator) + ".." + string(os.PathSeparator) + ".."
+
 				cmd := exec.Command("go", curCase.command...)
-				cmd.Env = os.Environ()
+				cmd.Env = addToGOPath(rootTestsPath)
 				var out bytes.Buffer
 				var outErr bytes.Buffer
 				cmd.Stdout = &out

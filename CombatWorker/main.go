@@ -8,7 +8,12 @@ import (
 )
 
 func main() {
-
+	//	for _, CurVal := range os.Environ() {
+	//		fmt.Println(CurVal)
+	//	}
+	//	//fmt.Println(os.Environ())
+	//	fmt.Println(string(os.PathListSeparator))
+	//	os.Exit(0)
 	worker, err := combatWorker.NewCombatWorker()
 	if err != nil {
 		fmt.Println("Cannot init combat worker")

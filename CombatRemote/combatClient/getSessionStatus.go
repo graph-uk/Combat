@@ -10,14 +10,14 @@ import (
 	"strconv"
 )
 
-func getSessionStatusJSON(sessionID string) (bool, string, error) {
+func (t *CombatClient) getSessionStatusJSON(sessionID string) (bool, string, error) {
 	bodyBuf := &bytes.Buffer{}
 	bodyWriter := multipart.NewWriter(bodyBuf)
 	bodyWriter.WriteField("sessionID", sessionID)
 	contentType := bodyWriter.FormDataContentType()
 	bodyWriter.Close()
 
-	resp, err := http.Post("http://localhost:9090/getSessionStatus", contentType, bodyBuf)
+	resp, err := http.Post(t.serverURL+"/getSessionStatus", contentType, bodyBuf)
 	if err != nil {
 		return false, err.Error(), err
 	}

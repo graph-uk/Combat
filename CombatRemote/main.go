@@ -5,11 +5,14 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/graph-uk/Combat/PCombat/combatClient"
+	"github.com/graph-uk/Combat/CombatRemote/combatClient"
 )
 
 func main() {
 	defaultSessionTimeout := 60 //minutes
+
+	//combatClient.Zipit(`D:\GDrive\DATA\testReps\GoPath\src\github.com\graph-uk\Combat\Tests_Examples_MinCurate`, "sdf.zip")
+	//os.Exit(0)
 
 	client, err := combatClient.NewCombatClient()
 	if err != nil {

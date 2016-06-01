@@ -42,8 +42,9 @@ func (t *CombatClient) packTests() (string, error) {
 	tmpFile.Close()
 	//	fmt.Println(tmpFile.Name())
 	//	tmpFile.Close()
-	zipit("./..", tmpFile.Name())
-	return tmpFile.Name(), nil
+	//Zipit(`D:\GDrive\DATA\testReps\GoPath\src\github.com\graph-uk\Combat\Tests_Examples_MinCurate`, `d:\sdf.zip`) //tmpFile.Name())
+	Zipit(`./../..`, `d:\sdf.zip`) //tmpFile.Name())
+	return `d:\sdf.zip`, nil       //tmpFile.Name(), nil
 }
 
 func (t *CombatClient) cleanupTests() error {
@@ -62,7 +63,7 @@ func (t *CombatClient) getParams() string {
 }
 
 func (t *CombatClient) createSessionOnServer(archiveFileName string) string {
-	fmt.Println("Uploading session...")
+	fmt.Println("Uploading session. File:" + archiveFileName)
 	sessionName := ""
 
 	var err error
@@ -93,20 +94,16 @@ func (t *CombatClient) CreateNewSession(timeoutMinutes int) (string, error) {
 		fmt.Println("Cannot pack tests to zip archive")
 		return "", err
 	}
-
+	//os.Exit(0)
 	sessionName := t.createSessionOnServer(testsArchiveFileName)
 	fmt.Println("Session: " + sessionName)
 
-	//	cleanupTests()
-	//	testsArchiveFileName := packTests()
-	//	sessionName, _ := createSessionOnServer(testsArchiveFileName)
-	//	fmt.Println("Session: " + sessionName)
 	return sessionName, nil
 }
 
 func (t *CombatClient) GetSessionResult(sessionID string) int {
 	for {
-		finished, _, err := getSessionStatusJSON(sessionID)
+		finished, _, err := t.getSessionStatusJSON(sessionID)
 		if err != nil {
 			fmt.Println(err.Error())
 		}

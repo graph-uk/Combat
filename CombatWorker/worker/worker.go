@@ -83,6 +83,7 @@ func (t *CombatWorker) getJob(host string) (command string, params string, sessi
 
 func (t *CombatWorker) postCases(cases string, sessionID string) error {
 	fmt.Print("post cases... ")
+	fmt.Println("beforeSend")
 	bodyBuf := &bytes.Buffer{}
 	bodyWriter := multipart.NewWriter(bodyBuf)
 	bodyWriter.WriteField("sessionID", sessionID)
@@ -91,10 +92,12 @@ func (t *CombatWorker) postCases(cases string, sessionID string) error {
 	contentType := bodyWriter.FormDataContentType()
 	bodyWriter.Close()
 
-	resp, err := http.Post("http://deltaview.ru:9090/setSessionCases", contentType, bodyBuf)
+	resp, err := http.Post(t.serverURL+"/setSessionCases", contentType, bodyBuf)
 	if err != nil {
+		fmt.Print(err)
 		return err
 	}
+	fmt.Println("afterSend")
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
 		fmt.Println("Fail: incorrect request status - " + strconv.Itoa(resp.StatusCode))
@@ -106,20 +109,37 @@ func (t *CombatWorker) postCases(cases string, sessionID string) error {
 	return nil
 }
 
+func (t *CombatWorker) addToGOPath(pathExtention string) []string {
+	result := os.Environ()
+	for curVarIndex, curVarValue := range result {
+		if strings.HasPrefix(curVarValue, "GOPATH=") {
+			result[curVarIndex] = result[curVarIndex] + string(os.PathListSeparator) + pathExtention
+			return result
+		}
+	}
+	return result
+}
+
 func (t *CombatWorker) doCasesExplore(params, sessionID string) (status int, cases string) {
 	fmt.Println("CasesExplore")
 	err := unzip("./job/archived.zip", "./job/unarch")
 	if err != nil {
 		fmt.Print(err.Error())
 	}
-	os.Chdir("job/unarch/Tests")
+	os.Chdir("job/unarch/src/Tests")
+	rootTestsPath, _ := os.Getwd()
+	rootTestsPath += string(os.PathSeparator) + ".." + string(os.PathSeparator) + ".."
+	//	fmt.Println(t.addToGOPath(rootTestsPath))
+	//	os.Exit(0)
 
 	command := []string{"cases"}
 	fmt.Println(params)
 	command = append(command, strings.Split(params, " ")...)
 
 	cmd := exec.Command("combat", command...)
-	cmd.Env = os.Environ()
+	//cmd.Env = os.Environ()
+	cmd.Env = t.addToGOPath(rootTestsPath)
+
 	var out bytes.Buffer
 	var outErr bytes.Buffer
 	cmd.Stdout = &out
@@ -146,7 +166,12 @@ func (t *CombatWorker) doRunCase(params, caseID string) {
 	if err != nil {
 		fmt.Print(err.Error())
 	}
-	os.Chdir("job/unarch/Tests")
+	os.Chdir("job/unarch/src/Tests")
+	//os.Exit(0)
+	rootTestsPath, _ := os.Getwd()
+	rootTestsPath += string(os.PathSeparator) + ".." + string(os.PathSeparator) + ".."
+	//	fmt.Println(t.addToGOPath(rootTestsPath))
+	//	os.Exit(0)
 
 	command := []string{"run"}
 	//fmt.Println(params)
@@ -155,7 +180,7 @@ func (t *CombatWorker) doRunCase(params, caseID string) {
 	command[1] = "main.go"
 
 	cmd := exec.Command("go", command...)
-	cmd.Env = os.Environ()
+	cmd.Env = t.addToGOPath(rootTestsPath)
 	var out bytes.Buffer
 	var outErr bytes.Buffer
 	cmd.Stdout = &out
@@ -216,7 +241,7 @@ func (t *CombatWorker) postCaseResult(caseID, exitStatus, stdout string) error {
 	bodyWriter.WriteField("stdOut", stdout)
 	bodyWriter.Close()
 
-	resp, err := http.Post("http://deltaview.ru:9090"+"/setCaseResult", contentType, bodyBuf)
+	resp, err := http.Post(t.serverURL+"/setCaseResult", contentType, bodyBuf)
 	if err != nil {
 		return err
 	}
