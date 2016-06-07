@@ -10,8 +10,9 @@ import (
 )
 
 type CombatClient struct {
-	serverURL string
-	sessionID string
+	serverURL             string
+	sessionID             string
+	sessionBeginTimestamp time.Time
 }
 
 func (t *CombatClient) getServerUrlFromCLI() (string, error) {
@@ -42,9 +43,8 @@ func (t *CombatClient) packTests() (string, error) {
 	tmpFile.Close()
 	//	fmt.Println(tmpFile.Name())
 	//	tmpFile.Close()
-	//Zipit(`D:\GDrive\DATA\testReps\GoPath\src\github.com\graph-uk\Combat\Tests_Examples_MinCurate`, `d:\sdf.zip`) //tmpFile.Name())
-	Zipit(`./../..`, `d:\sdf.zip`) //tmpFile.Name())
-	return `d:\sdf.zip`, nil       //tmpFile.Name(), nil
+	zipit("./../..", tmpFile.Name())
+	return tmpFile.Name(), nil
 }
 
 func (t *CombatClient) cleanupTests() error {
@@ -63,7 +63,7 @@ func (t *CombatClient) getParams() string {
 }
 
 func (t *CombatClient) createSessionOnServer(archiveFileName string) string {
-	fmt.Println("Uploading session. File:" + archiveFileName)
+	fmt.Println("Uploading session.")
 	sessionName := ""
 
 	var err error
@@ -83,6 +83,7 @@ func (t *CombatClient) createSessionOnServer(archiveFileName string) string {
 }
 
 func (t *CombatClient) CreateNewSession(timeoutMinutes int) (string, error) {
+	t.sessionBeginTimestamp = time.Now()
 	err := t.cleanupTests()
 	if err != nil {
 		fmt.Println("Cannot cleanup tests")
@@ -112,5 +113,6 @@ func (t *CombatClient) GetSessionResult(sessionID string) int {
 		}
 		time.Sleep(5 * time.Second)
 	}
+	fmt.Println("Time of testing: " + time.Since(t.sessionBeginTimestamp).String())
 	return 0
 }

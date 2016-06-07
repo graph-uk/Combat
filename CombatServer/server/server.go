@@ -79,7 +79,7 @@ func (t *CombatServer) Serve() error {
 	http.HandleFunc("/setSessionCases", t.setSessionCasesHandler)
 	http.HandleFunc("/setCaseResult", t.setCaseResultHandler)
 	http.HandleFunc("/getSessionStatus", t.getSessionStatusHandler)
-	http.ListenAndServe(":9090", nil)
+	//http.ListenAndServe(":9090", nil)
 
 	err := http.ListenAndServe(":"+strconv.Itoa(t.config.Port), nil)
 	return err

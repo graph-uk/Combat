@@ -32,4 +32,6 @@ _ReSharper*/
 CombatServer/sessions
 CombatServer/tries
 CombatNode/job
-
+*.sl3
+*.zip
+config.json
