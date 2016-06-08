@@ -2,6 +2,7 @@ package main
 
 import (
 	"Tests_shared/aTest"
+	"io/ioutil"
 	"log"
 	"os"
 )
@@ -31,6 +32,7 @@ func createNewTest() (*theTest, error) {
 	result.aTest.Tags = append(result.aTest.Tags, "AlwaysFailedTest")
 
 	result.aTest.FillParamsFromCLI(&result.params)
+	result.aTest.CreateOutputFolder()
 	return &result, nil
 }
 
@@ -39,6 +41,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	ioutil.WriteFile("out/log.txt", []byte("Fail"), 0777)
 	os.Exit(12)
 	log.Println("ok")
 	return
