@@ -9,7 +9,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/graph-uk/Combat/arrayUtils"
+	"github.com/graph-uk/combat/arrayUtils"
 )
 
 type Test struct {

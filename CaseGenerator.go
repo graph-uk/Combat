@@ -2,11 +2,10 @@ package main
 
 import (
 	"log"
-	//"fmt"
 )
 
 type enumerableElement struct {
-	name string
+	name                string
 	variants            []string
 	currentVariantIndex int
 }
@@ -29,25 +28,25 @@ func (t *enumerableElement) Next() bool {
 	}
 }
 
-type combinator struct{
-	elements  []enumerableElement
+type combinator struct {
+	elements []enumerableElement
 }
 
 func (t *combinator) Next() (map[string]string, bool) {
 	var result map[string]string
 	result = make(map[string]string)
 
-	for _, curElement := range t.elements{
+	for _, curElement := range t.elements {
 		result[curElement.name] = curElement.variants[curElement.currentVariantIndex]
 	}
 
 	allEnd := false
-	for curElementIndex, _ := range t.elements{
-		if !t.elements[curElementIndex].Next(){
+	for curElementIndex, _ := range t.elements {
+		if !t.elements[curElementIndex].Next() {
 			break
-		}else{
-			if curElementIndex == len(t.elements)-1{
-				allEnd=true
+		} else {
+			if curElementIndex == len(t.elements)-1 {
+				allEnd = true
 			}
 		}
 	}
@@ -56,22 +55,21 @@ func (t *combinator) Next() (map[string]string, bool) {
 }
 
 func (t *combinator) LoadElements(input map[string][]string) {
-	for curElementName, curElement := range input{
+	for curElementName, curElement := range input {
 		var element enumerableElement
 		element.LoadVariants(curElement)
 		element.name = curElementName
-		t.elements = append(t.elements,element)
+		t.elements = append(t.elements, element)
 	}
 }
 
-
-func getAllParamsCombinations(input map[string][]string)[]*map[string]string{
+func getAllParamsCombinations(input map[string][]string) []*map[string]string {
 	var result []*map[string]string
 
 	var combinator combinator
 	combinator.LoadElements(input)
 
-	for ; ;  {
+	for {
 		curCombination, isEnd := combinator.Next()
 		result = append(result, &curCombination)
 
@@ -81,20 +79,3 @@ func getAllParamsCombinations(input map[string][]string)[]*map[string]string{
 	}
 	return result
 }
-
-
-// TestCode
-
-//allEnumParameters := make(map[string][]string)
-//allEnumParameters["Local"] = []string{"en","ru","us","it"}
-//allEnumParameters["platform"] = []string{"mobile ","desktop"}
-////allEnumParameters["planet"] = []string{"earth"}
-//allEnumParameters["lynxy"] = []string{"y ","n ","NA"}
-//allCombines := getAllCombinations(allEnumParameters);
-//for curCombineIndex, curCombine := range allCombines{
-////fmt.Println(curCombineIndex, (*curCombine)["Local"], (*curCombine)["platform"], (*curCombine)["planet"], (*curCombine)["lynxy"])
-//fmt.Println(curCombineIndex, (*curCombine)["Local"], (*curCombine)["platform"], (*curCombine)["lynxy"])
-////fmt.Println(*curCombine)
-//}
-//fmt.Println("ok")
-//os.Exit(0)

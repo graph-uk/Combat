@@ -1,9 +1,7 @@
 package CLIParser
 
 import (
-	//	"flag"
 	"os"
-	//	"regexp"
 	"strings"
 )
 
@@ -34,10 +32,10 @@ func GetCLIFlagValueByName(CLIFlags []CLIFlag, name string) string {
 func GetAction() string {
 	if len(os.Args) > 1 {
 		action := ""
-		for curArgIndex, curArg := range os.Args{
-			if curArgIndex>0{
-				if curArg[0] != '-'{
-					action=curArg
+		for curArgIndex, curArg := range os.Args {
+			if curArgIndex > 0 {
+				if curArg[0] != '-' {
+					action = curArg
 					break
 				}
 			}
@@ -71,6 +69,6 @@ func ParseAllCLIFlags() map[string]string {
 	return result
 }
 
-func GetAllVariantsOfFlagSeparatedBy(flag string, separator string)[]string{
-	return strings.Split(flag,separator)
+func GetAllVariantsOfFlagSeparatedBy(flag string, separator string) []string {
+	return strings.Split(flag, separator)
 }

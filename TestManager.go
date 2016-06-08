@@ -6,11 +6,11 @@ import (
 	"log"
 	"regexp"
 
-	"github.com/graph-uk/Combat/CLIParser"
-	//"os"
 	"os"
 
-	"github.com/graph-uk/Combat/arrayUtils"
+	"github.com/graph-uk/combat/CLIParser"
+
+	"github.com/graph-uk/combat/arrayUtils"
 )
 
 // This is the base struct contain all required in all test fields

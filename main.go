@@ -3,9 +3,9 @@ package main
 import (
 	"os"
 
-	"github.com/graph-uk/Combat/CLIParser"
-	"github.com/graph-uk/Combat/Manual"
-	"github.com/graph-uk/Combat/SerialRunner"
+	"github.com/graph-uk/combat/CLIParser"
+	"github.com/graph-uk/combat/Manual"
+	"github.com/graph-uk/combat/SerialRunner"
 )
 
 func main() {
