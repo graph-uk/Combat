@@ -5,14 +5,16 @@ Getting Combat on Windows
 =====
 * Install git
 * Install go. For example, you've set gopath as `C:\gopath`
-* Run `go get github.com/graph-uk/Combat`
+* Run `go get github.com/graph-uk/combat`
+* Run `go install github.com/graph-uk/combat`
 * Add go packages binary `C:\gopath\bin` to path.
-* Add your test's directory to GOPATH. If you are has not Combat tests, you are able add directory with default example tests.
-`C:\gopath\src\github.com\graph-uk\Combat\Tests_Examples`
+* Add your test's directory to GOPATH. If you are has not combat tests, you are able add directory with default example tests.
+`C:\gopath\src\github.com\graph-uk\combat\Tests_Examples\src\Tests`
+* Restart your command line to reload Env variables
 
 Check your installation
 =====
-Go to test directory, run `Combat list`. Now you should see information about test that you have.
+Go to test directory, run `combat list`. Now you should see information about test that you have.
 ```
 simpleTestReturnsTrue
 -------------------------------------------------
@@ -31,4 +33,4 @@ Now you are able add your own test directory to GOPATH, and write your own tests
 
 Get addition information
 =====
-Run `Combat help`
+Run `combat help`

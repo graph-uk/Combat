@@ -4,10 +4,10 @@ import "fmt"
 
 func PrintManual() {
 	fmt.Println(`NAME
-       Combat - list tests in current directory
+       combat - list tests in current directory
 
 SYNOPSIS
-       Combat [ACTION]... [OPTIONS]... [PARAMETERS_FOR_TESTS]...
+       combat [ACTION]... [OPTIONS]... [PARAMETERS_FOR_TESTS]...
 
 DESCRIPTION
        List information about tests conained in current directory.
@@ -46,7 +46,7 @@ OPTIONS
 
 PARAMETERS FOR TESTS
        There is parameters that will be provided to tests before run it.
-       You can find out information about parameters of your tests by running Combat with any list action (list,
+       You can find out information about parameters of your tests by running combat with any list action (list,
        params, tags) "combat list".
        All test parameter's names is a sequence of characters without spaces. Only letters and numbers are accepted.
        All test parameter's values is a sequence of characters without spaces. Special symbols and numbers are accepted.
@@ -64,7 +64,7 @@ PARAMETERS FOR TESTS
               If it is not defined - test will be run with each of all accepted values.
               If the test has two or more enum parameters - test will be run with all combinations of parameters.
               For example (uk;desktop uk;mobile ru;desktop ru;mobile etc...)
-              You can find out cases by "Combat cases" command.
+              You can find out cases by "combat cases" command.
 
 EXIT STATUS
        0                    all tests are passed, or list action executed successfully.
@@ -72,16 +72,16 @@ EXIT STATUS
 
 
 EXAMPLES (You are able run all following commands in "CombatSelfTesting" folder)
-       Combat
+       combat
               run all tests in current directory, using all accepted cases
 
-       Combat list
+       combat list
               show list of tests with parameters and tags, ordered by name of test
 
-       Combat list -tag=NotForLive,adminPanelTest -name=.*Currency.*
+       combat list -tag=NotForLive,adminPanelTest -name=.*Currency.*
               Show the list of tests, selected by following tags, and name contans "Currency"
 
-       Combat cases -tag=NotForLive,adminPanelTest -name=.*Currency.* -Locale=uk,us
+       combat cases -tag=NotForLive,adminPanelTest -name=.*Currency.* -Locale=uk,us
               Show all cases for tests selected by name and tag, with following locales (uk,us)
 
 REPORTING BUGS
